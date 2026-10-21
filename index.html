@@ -1,889 +1,1060 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080b16">
-  <meta name="description" content="MASTERMIND GALLERY PRO — your personal photo and video gallery.">
-  <meta name="color-scheme" content="dark light">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#7c5cff">
+  <meta name="description" content="MASTERMIND GALLERY PRO - Your personal media gallery">
   <title>MASTERMIND GALLERY PRO</title>
 
   <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
 
   <style>
     :root {
       color-scheme: dark;
-      --bg: #10111b;
-      --panel: #202236;
-      --text: #f5f3ff;
-      --muted: #aaaac2;
-      --accent: #a78bfa;
-      --line: #383950;
-      --shadow: 0 12px 35px #0002;
+      --bg: #080b16;
+      --panel: #11172a;
+      --panel2: #1a2239;
+      --text: #f4f5ff;
+      --muted: #a6aec8;
+      --accent: #8b68ff;
+      --accent2: #5c7cff;
+      --danger: #ff5470;
+      --border: #2b3451;
+      --shadow: 0 12px 35px #0003;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font: 15px system-ui, -apple-system, sans-serif;
-      transition: background .25s, color .25s;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      min-height: 100vh;
     }
 
-    body.light {
+    body[data-theme="light"] {
       color-scheme: light;
-      --bg: #f4f7fb;
+      --bg: #f2f4fb;
       --panel: #ffffff;
-      --text: #172033;
-      --muted: #697386;
-      --accent: #3978f6;
-      --line: #dce2ed;
+      --panel2: #e8ecf7;
+      --text: #17203a;
+      --muted: #626c85;
+      --accent: #6544df;
+      --accent2: #4168e8;
+      --border: #d7dcec;
+      --shadow: 0 12px 35px #26305012;
     }
 
-    body.ocean {
-      --bg: #071e2e;
-      --panel: #10364a;
-      --text: #e6faff;
-      --muted: #a3d5e3;
-      --accent: #38c8e8;
-      --line: #245064;
+    body[data-theme="ocean"] {
+      --bg: #061c29;
+      --panel: #0b2c3b;
+      --panel2: #124153;
+      --accent: #00b9d6;
+      --accent2: #347dff;
+      --border: #215064;
     }
 
-    body.emerald {
-      --bg: #0b211b;
-      --panel: #183a2e;
-      --text: #e8fff4;
-      --muted: #a9d9c3;
-      --accent: #42d6a0;
-      --line: #305747;
+    body[data-theme="emerald"] {
+      --bg: #071b17;
+      --panel: #102a23;
+      --panel2: #193d30;
+      --accent: #20c997;
+      --accent2: #38a77b;
+      --border: #285546;
     }
 
-    body.rose {
-      --bg: #2a171f;
-      --panel: #422630;
-      --text: #fff0f4;
-      --muted: #e0b8c4;
-      --accent: #f0a6b8;
-      --line: #633a49;
+    body[data-theme="rose"] {
+      --bg: #24101e;
+      --panel: #351729;
+      --panel2: #492137;
+      --accent: #ff639d;
+      --accent2: #b36bff;
+      --border: #60304c;
     }
 
-    body.sunset {
-      --bg: #291729;
-      --panel: #48243e;
-      --text: #fff1e8;
-      --muted: #e1bad5;
-      --accent: #ff9966;
-      --line: #693b60;
+    body[data-theme="sunset"] {
+      --bg: #25140e;
+      --panel: #382016;
+      --panel2: #4d2b1b;
+      --accent: #ff8b45;
+      --accent2: #f04e83;
+      --border: #68412c;
     }
 
-    body.black {
+    body[data-theme="black"] {
       --bg: #000000;
-      --panel: #141414;
-      --text: #ffffff;
-      --muted: #aaaaaa;
-      --accent: #b8a0ff;
-      --line: #333333;
+      --panel: #101010;
+      --panel2: #202020;
+      --accent: #a58aff;
+      --accent2: #627bff;
+      --border: #353535;
     }
 
-    body.arctic {
-      color-scheme: light;
-      --bg: #eaf7ff;
-      --panel: #ffffff;
-      --text: #14334a;
-      --muted: #547487;
-      --accent: #1688c9;
-      --line: #c9e4f2;
-    }
-
-    button, input, select {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-      border: 1px solid var(--line);
-      color: var(--text);
-      background: var(--panel);
-      padding: 11px 14px;
-      border-radius: 13px;
-      transition: transform .2s, border-color .2s, opacity .2s;
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent);
-    }
-
-    button:focus-visible,
-    input:focus-visible,
-    select:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-    }
-
-    button:disabled {
-      cursor: not-allowed;
-      opacity: .55;
-      transform: none;
-    }
-
-    .app {
-      max-width: 1100px;
-      margin: auto;
-      padding: 20px;
+    body[data-theme="arctic"] {
+      --bg: #101c2b;
+      --panel: #192b40;
+      --panel2: #243c54;
+      --accent: #65d6ff;
+      --accent2: #829bff;
+      --border: #35536b;
     }
 
     header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      padding: 14px 18px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .topbar {
+      max-width: 1200px;
+      margin: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 22px;
     }
 
     .brand {
-      font-size: 19px;
-      font-weight: 850;
-      letter-spacing: .5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .brand span,
-    .accent-text {
-      color: var(--accent);
+    .logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      object-fit: cover;
     }
 
-    .sub {
+    h1 {
+      margin: 0;
+      font-size: clamp(17px, 3vw, 23px);
+      letter-spacing: .3px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 22px 16px 50px;
+    }
+
+    .hero {
+      padding: 25px;
+      border-radius: 24px;
+      background: linear-gradient(125deg, var(--panel), var(--panel2));
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+
+    .hero h2 {
+      font-size: clamp(24px, 5vw, 38px);
+      margin: 0 0 9px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 17px 12px;
+      border-radius: 17px;
+      min-width: 0;
+    }
+
+    .stat .number {
+      font-size: 26px;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .stat .label {
       color: var(--muted);
       font-size: 12px;
       margin-top: 5px;
     }
 
-    .hero {
-      padding: 24px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, var(--panel), var(--bg));
-      border: 1px solid var(--line);
-      margin-bottom: 20px;
-      box-shadow: var(--shadow);
+    .section {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      margin: 16px 0;
     }
 
-    h1 {
-      font-size: clamp(25px, 5vw, 38px);
-      margin: 0 0 8px;
-    }
-
-    h2 {
-      font-size: 19px;
+    .section h3 {
       margin: 0 0 14px;
-    }
-
-    p {
-      line-height: 1.6;
-    }
-
-    .muted {
-      color: var(--muted);
+      font-size: 18px;
     }
 
     .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 17px;
-    }
-
-    .primary {
-      background: var(--accent);
-      color: #11121b;
-      border-color: transparent;
-      font-weight: 750;
-    }
-
-    .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin: 18px 0 24px;
-    }
-
-    .stat,
-    .section,
-    .tile {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-    }
-
-    .stat {
-      padding: 16px;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 26px;
-      margin-top: 8px;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .section {
-      padding: 19px;
-      margin-bottom: 20px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 11px;
-    }
-
-    .tile {
-      padding: 16px 10px;
-      text-align: center;
-      min-width: 0;
-    }
-
-    .tile .emoji {
-      font-size: 27px;
-      display: block;
-      margin-bottom: 9px;
-    }
-
-    .tile strong {
-      font-size: 13px;
-      display: block;
-    }
-
-    .tile small {
-      display: block;
-      margin-top: 6px;
-      color: var(--muted);
-    }
-
-    input,
-    select {
-      background: var(--bg);
-      color: var(--text);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px;
-      width: 100%;
-      min-width: 0;
-    }
-
-    .searchrow {
-      display: flex;
-      gap: 9px;
-      margin-bottom: 15px;
-    }
-
-    .media-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
       gap: 10px;
     }
 
-    .media-item {
-      overflow: hidden;
-      border: 1px solid var(--line);
+    button, select, input {
+      font: inherit;
+    }
+
+    button {
+      color: var(--text);
+      background: var(--panel2);
+      border: 1px solid var(--border);
       border-radius: 13px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: transform .15s, filter .15s;
+    }
+
+    button:hover { filter: brightness(1.12); }
+    button:active { transform: scale(.98); }
+    button:disabled { opacity: .55; cursor: wait; }
+
+    .primary {
+      background: linear-gradient(120deg, var(--accent), var(--accent2));
+      border: 0;
+      color: white;
+      font-weight: 700;
+    }
+
+    .danger {
+      color: #ff8295;
+      border-color: #9a3d52;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
+    .toolbar input, .toolbar select, .settings-row select {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
       min-width: 0;
     }
 
-    .media-item img,
-    .media-item video {
-      display: block;
-      width: 100%;
-      aspect-ratio: 1;
-      object-fit: cover;
-      background: var(--bg);
+    .toolbar input { flex: 1 1 190px; }
+    .toolbar select { flex: 0 1 155px; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+      gap: 12px;
     }
 
-    .media-item button {
+    .media-card {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .preview {
       width: 100%;
-      border-radius: 0;
-      border: 0;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      background: var(--bg);
+      cursor: pointer;
+    }
+
+    .media-info { padding: 10px; }
+
+    .filename {
       font-size: 12px;
       overflow-wrap: anywhere;
+      line-height: 1.45;
+      min-height: 34px;
+    }
+
+    .filesize {
+      font-size: 11px;
+      color: var(--muted);
+      margin: 5px 0 9px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .card-actions button {
+      padding: 8px 5px;
+      flex: 1;
+      font-size: 12px;
     }
 
     .empty {
-      color: var(--muted);
       text-align: center;
-      padding: 25px 8px;
-    }
-
-    .hidden {
-      display: none !important;
+      padding: 35px 12px;
+      color: var(--muted);
+      line-height: 1.7;
     }
 
     .status {
+      border-radius: 12px;
+      background: var(--panel2);
       color: var(--muted);
+      padding: 12px;
+      margin: 12px 0;
+      line-height: 1.6;
       font-size: 13px;
-      margin-top: 12px;
       overflow-wrap: anywhere;
     }
 
-    footer {
+    .status.error { color: #ff8196; }
+    .status.success { color: #50dba4; }
+
+    .settings-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 10px 0;
+    }
+
+    .settings-row label { color: var(--muted); }
+
+    .footer {
       text-align: center;
+      padding: 25px 10px;
       color: var(--muted);
-      padding: 25px 5px;
       font-size: 12px;
+      line-height: 1.8;
     }
 
-    @media (max-width: 600px) {
-      .app {
-        padding: 13px;
-      }
+    .hidden { display: none !important; }
 
-      .stats {
-        gap: 7px;
-      }
-
-      .stat {
-        padding: 12px 9px;
-      }
-
-      .stat strong {
-        font-size: 22px;
-      }
-
-      .grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .hero {
-        padding: 19px;
-      }
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      background: #000e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        transition-duration: .01ms !important;
-        animation-duration: .01ms !important;
-        scroll-behavior: auto !important;
-      }
+    #lightbox img, #lightbox video {
+      max-width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+    }
+
+    #lightbox button { margin-top: 12px; }
+
+    @media (max-width: 480px) {
+      header { padding: 12px; }
+      main { padding: 14px 10px 35px; }
+      .hero { padding: 19px; }
+      .stats { gap: 7px; }
+      .stat { padding: 12px 8px; }
+      .stat .number { font-size: 22px; }
+      .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section { padding: 13px; }
     }
   </style>
 </head>
 
-<body>
-  <main class="app">
-    <header>
+<body data-theme="midnight">
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <img class="logo" src="./icon.svg" alt="Mastermind logo">
       <div>
-        <div class="brand">
-          MASTERMIND <span>GALLERY PRO</span>
-        </div>
-        <div class="sub">YOUR MEMORIES. YOUR CONTROL.</div>
+        <h1>MASTERMIND GALLERY PRO</h1>
+        <div class="subtitle">Your personal media space</div>
       </div>
+    </div>
+    <button id="installButton" class="primary hidden">⬇ Install App</button>
+  </div>
+</header>
 
-      <button id="themeQuick" type="button">🎨 Change Theme</button>
-    </header>
+<main>
+  <section class="hero">
+    <h2>তোমার মিডিয়া, তোমার গ্যালারি ✨</h2>
+    <p>
+      ছবি ও ভিডিও যোগ করো, খুঁজে বের করো এবং IndexedDB-তে সংরক্ষণ করো।
+      অ্যাপ বন্ধ করলেও সংরক্ষিত মিডিয়া সাধারণত থেকে যাবে।
+    </p>
+    <div id="status" class="status" role="status" aria-live="polite">
+      গ্যালারি চালু হচ্ছে...
+    </div>
+  </section>
 
-    <section class="hero">
-      <div class="sub">WELCOME TO YOUR PERSONAL GALLERY</div>
+  <section class="stats" aria-label="Media statistics">
+    <div class="stat">
+      <div id="totalCount" class="number">0</div>
+      <div class="label">মোট ফাইল</div>
+    </div>
+    <div class="stat">
+      <div id="photoCount" class="number">0</div>
+      <div class="label">ছবি</div>
+    </div>
+    <div class="stat">
+      <div id="videoCount" class="number">0</div>
+      <div class="label">ভিডিও</div>
+    </div>
+  </section>
 
-      <h1>
-        Your world.<br>
-        <span class="accent-text">Your memories.</span>
-      </h1>
+  <section class="section">
+    <h3>📥 মিডিয়া যোগ করো</h3>
+    <div class="actions">
+      <button class="primary" id="importButton">＋ ছবি / ভিডিও Import</button>
+      <button id="cameraButton">📷 ছবি নির্বাচন</button>
+      <button id="refreshButton">↻ গ্যালারি Refresh</button>
+    </div>
 
-      <p class="muted">
-        Photos, videos and creative tools in one place.
-      </p>
+    <input id="fileInput" class="hidden" type="file"
+      accept="image/*,video/*" multiple>
+    <input id="cameraInput" class="hidden" type="file"
+      accept="image/*" capture="environment">
 
-      <div class="actions">
-        <button class="primary" id="cameraBtn" type="button">
-          📸 Open Camera
-        </button>
+    <p class="subtitle">
+      Import করা ফাইল এই ব্রাউজারের স্টোরেজে কপি হবে। বড় ভিডিওতে
+      বেশি স্টোরেজ লাগতে পারে।
+    </p>
+  </section>
 
-        <button id="importBtn" type="button">
-          ＋ Import Media
-        </button>
-
-        <button id="installBtn" class="hidden" type="button">
-          ⬇ Install App
-        </button>
-      </div>
-
-      <input
-        id="cameraInput"
-        class="hidden"
-        type="file"
-        accept="image/*,video/*"
-        capture="environment"
-        aria-label="Capture a photo or video"
-      >
-
-      <input
-        id="fileInput"
-        class="hidden"
-        type="file"
-        accept="image/*,video/*"
-        multiple
-        aria-label="Import photos and videos"
-      >
-
-      <div id="appStatus" class="status" role="status" aria-live="polite">
-        Gallery ready. Import media to begin.
-      </div>
-    </section>
-
-    <section class="stats" aria-label="Gallery statistics">
-      <div class="stat">
-        <span>📷 Photos</span>
-        <strong id="photoCount">0</strong>
-      </div>
-
-      <div class="stat">
-        <span>🎬 Videos</span>
-        <strong id="videoCount">0</strong>
-      </div>
-
-      <div class="stat">
-        <span>📁 Albums</span>
-        <strong id="albumCount">0</strong>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>🔎 Find Your Memories</h2>
-
-      <div class="searchrow">
-        <input
-          id="searchInput"
-          type="search"
-          placeholder="Search media by name..."
-          aria-label="Search media by filename"
-        >
-      </div>
-
-      <div class="media-grid" id="mediaGrid">
-        <div class="empty" style="grid-column:1/-1">
-          Your gallery is waiting.<br>
-          Import photos or videos to begin.
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>✨ Creative Studio</h2>
-
-      <div class="grid">
-        <button class="tile" data-tool="Photo Editor" type="button">
-          <span class="emoji">🖼️</span>
-          <strong>Photo Editor</strong>
-          <small>Filters &amp; crop</small>
-        </button>
-
-        <button class="tile" data-tool="Video Editor" type="button">
-          <span class="emoji">🎞️</span>
-          <strong>Video Editor</strong>
-          <small>Trim &amp; tools</small>
-        </button>
-
-        <button class="tile" data-tool="PDF Maker" type="button">
-          <span class="emoji">📄</span>
-          <strong>PDF Maker</strong>
-          <small>Images to PDF</small>
-        </button>
-
-        <button class="tile" data-tool="QR Studio" type="button">
-          <span class="emoji">▦</span>
-          <strong>QR Studio</strong>
-          <small>Create QR</small>
-        </button>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>🗂️ Media Manager</h2>
-
-      <div class="grid">
-        <button class="tile" data-tool="Albums" type="button">
-          <span class="emoji">📁</span>
-          <strong>Albums</strong>
-          <small>Organize media</small>
-        </button>
-
-        <button class="tile" data-tool="Trash" type="button">
-          <span class="emoji">🗑️</span>
-          <strong>Trash</strong>
-          <small>Restore items</small>
-        </button>
-
-        <button class="tile" data-tool="Private Vault" type="button">
-          <span class="emoji">🔐</span>
-          <strong>Private Vault</strong>
-          <small>Privacy tools</small>
-        </button>
-
-        <button class="tile" data-tool="Settings" type="button">
-          <span class="emoji">⚙️</span>
-          <strong>Settings</strong>
-          <small>App preferences</small>
-        </button>
-      </div>
-    </section>
-
-    <section class="section" id="themeSection">
-      <h2>🎨 Appearance &amp; Themes</h2>
-      <p class="muted">Choose your favourite style.</p>
-
-      <select id="themeSelect" aria-label="Choose theme">
-        <option value="midnight">Midnight Purple</option>
-        <option value="light">Modern Light</option>
-        <option value="ocean">Ocean Blue</option>
-        <option value="emerald">Emerald Green</option>
-        <option value="rose">Rose Gold</option>
-        <option value="sunset">Sunset Glow</option>
-        <option value="black">Pure Black</option>
-        <option value="arctic">Arctic Blue</option>
+  <section class="section">
+    <h3>🖼️ আমার গ্যালারি</h3>
+    <div class="toolbar">
+      <input id="searchInput" type="search"
+        placeholder="ফাইলের নাম দিয়ে খুঁজুন..." aria-label="Search media">
+      <select id="typeFilter" aria-label="Filter media">
+        <option value="all">সব ফাইল</option>
+        <option value="image">শুধু ছবি</option>
+        <option value="video">শুধু ভিডিও</option>
       </select>
-    </section>
+      <select id="sortFilter" aria-label="Sort media">
+        <option value="newest">নতুন আগে</option>
+        <option value="oldest">পুরোনো আগে</option>
+        <option value="name">নাম অনুযায়ী</option>
+      </select>
+    </div>
 
-    <section class="section">
-      <h2>👨‍💻 Developer</h2>
-      <p class="muted">
-        Designed for creativity, privacy and offline use.
-      </p>
+    <div id="gallery" class="gallery">
+      <div class="empty">গ্যালারি লোড হচ্ছে...</div>
+    </div>
+  </section>
 
-      <button class="primary" id="developerBtn" type="button">
-        DEVELOPER — MASTERMIND
-      </button>
+  <section class="section">
+    <h3>⚙️ সেটিংস</h3>
 
-      <p id="developerInfo" class="muted hidden">
-        MASTERMIND GALLERY PRO · Personal Media Studio
-      </p>
-    </section>
+    <div class="settings-row">
+      <label for="themeSelect">অ্যাপের থিম</label>
+      <select id="themeSelect">
+        <option value="midnight">Midnight</option>
+        <option value="light">Light</option>
+        <option value="ocean">Ocean</option>
+        <option value="emerald">Emerald</option>
+        <option value="rose">Rose</option>
+        <option value="sunset">Sunset</option>
+        <option value="black">Black</option>
+        <option value="arctic">Arctic</option>
+      </select>
+    </div>
 
-    <footer>
-      MASTERMIND GALLERY PRO · Your personal media space
-    </footer>
-  </main>
+    <div class="settings-row">
+      <label>স্টোরেজ অবস্থা</label>
+      <button id="storageButton">স্টোরেজ দেখুন</button>
+    </div>
 
-  <script>
-    "use strict";
+    <div class="settings-row">
+      <label>মিডিয়া ব্যাকআপ</label>
+      <button id="backupButton">ফাইল Export</button>
+    </div>
 
-    const $ = (id) => document.getElementById(id);
+    <div class="settings-row">
+      <label>অ্যাপের তথ্য</label>
+      <button id="aboutButton">About</button>
+    </div>
+  </section>
 
-    // Media imported during this page session.
-    // Permanent media storage will be added in a later version.
-    let media = [];
-    let installPrompt = null;
+  <div class="footer">
+    <strong>DEVELOPER — MASTERMIND</strong><br>
+    MASTERMIND GALLERY PRO<br>
+    তোমার ফাইল তোমার নিয়ন্ত্রণে রাখো। গুরুত্বপূর্ণ ফাইলের আলাদা ব্যাকআপ রাখবে।
+  </div>
+</main>
 
-    const themeNames = {
-      midnight: "",
-      light: "light",
-      ocean: "ocean",
-      emerald: "emerald",
-      rose: "rose",
-      sunset: "sunset",
-      black: "black",
-      arctic: "arctic"
+<div id="lightbox" class="hidden" role="dialog" aria-modal="true"
+  aria-label="Media preview">
+  <div id="lightboxContent"></div>
+  <button id="closeLightbox">✕ বন্ধ করো</button>
+</div>
+
+<script>
+"use strict";
+
+const DB_NAME = "mastermind-gallery-pro-db";
+const DB_VERSION = 1;
+const STORE_NAME = "media";
+
+let db = null;
+let allMedia = [];
+let objectUrls = [];
+let installPrompt = null;
+let busy = false;
+
+const $ = (id) => document.getElementById(id);
+
+function setStatus(message, type = "") {
+  const status = $("status");
+  status.textContent = message;
+  status.className = "status" + (type ? " " + type : "");
+}
+
+function formatBytes(bytes) {
+  if (!Number.isFinite(bytes) || bytes < 0) return "অজানা সাইজ";
+  if (bytes < 1024) return bytes + " B";
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+  if (bytes < 1024 * 1024 * 1024) {
+    return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+  }
+  return (bytes / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+}
+
+function openDatabase() {
+  return new Promise((resolve, reject) => {
+    if (!("indexedDB" in window)) {
+      reject(new Error("এই ব্রাউজারে IndexedDB পাওয়া যাচ্ছে না।"));
+      return;
+    }
+
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+    request.onupgradeneeded = () => {
+      const database = request.result;
+
+      if (!database.objectStoreNames.contains(STORE_NAME)) {
+        const store = database.createObjectStore(STORE_NAME, {
+          keyPath: "id",
+          autoIncrement: true
+        });
+        store.createIndex("name", "name", { unique: false });
+        store.createIndex("type", "type", { unique: false });
+        store.createIndex("createdAt", "createdAt", { unique: false });
+      }
     };
 
-    function setStatus(message) {
-      $("appStatus").textContent = message;
-    }
+    request.onsuccess = () => {
+      db = request.result;
+      db.onversionchange = () => db.close();
+      resolve(db);
+    };
 
-    function setTheme(name) {
-      if (!Object.prototype.hasOwnProperty.call(themeNames, name)) {
-        name = "midnight";
-      }
+    request.onerror = () => reject(
+      request.error || new Error("ডেটাবেস খোলা যায়নি।")
+    );
 
-      document.body.className = themeNames[name];
-      $("themeSelect").value = name;
+    request.onblocked = () => {
+      setStatus("অন্য ট্যাবে অ্যাপ খোলা আছে। অন্য ট্যাব বন্ধ করে আবার চেষ্টা করো।", "error");
+    };
+  });
+}
 
-      try {
-        localStorage.setItem("mmgp-theme", name);
-      } catch (error) {
-        console.warn("Theme preference could not be saved.", error);
-      }
+function transactionDone(transaction) {
+  return new Promise((resolve, reject) => {
+    transaction.oncomplete = () => resolve();
+    transaction.onerror = () => reject(
+      transaction.error || new Error("ডেটাবেস অপারেশন ব্যর্থ হয়েছে।")
+    );
+    transaction.onabort = () => reject(
+      transaction.error || new Error("ডেটাবেস অপারেশন বাতিল হয়েছে।")
+    );
+  });
+}
 
-      const themeColor =
-        name === "light" || name === "arctic"
-          ? "#f4f7fb"
-          : name === "ocean"
-            ? "#071e2e"
-            : "#080b16";
+async function saveFiles(files) {
+  if (!db) throw new Error("ডেটাবেস এখনো প্রস্তুত নয়।");
 
-      const themeMeta = document.querySelector(
-        'meta[name="theme-color"]'
-      );
+  const validFiles = Array.from(files).filter(file =>
+    file.type.startsWith("image/") || file.type.startsWith("video/")
+  );
 
-      if (themeMeta) {
-        themeMeta.setAttribute("content", themeColor);
-      }
-    }
+  if (!validFiles.length) {
+    setStatus("কোনো সমর্থিত ছবি বা ভিডিও নির্বাচন করা হয়নি।", "error");
+    return;
+  }
 
-    let savedTheme = "midnight";
+  const transaction = db.transaction(STORE_NAME, "readwrite");
+  const done = transactionDone(transaction);
+  const store = transaction.objectStore(STORE_NAME);
+  let saved = 0;
+  let failed = 0;
 
+  for (const file of validFiles) {
     try {
-      savedTheme = localStorage.getItem("mmgp-theme") || "midnight";
-    } catch (error) {
-      console.warn("Could not read saved theme.", error);
-    }
-
-    setTheme(savedTheme);
-
-    $("themeSelect").addEventListener("change", (event) => {
-      setTheme(event.target.value);
-    });
-
-    $("themeQuick").addEventListener("click", () => {
-      const names = Object.keys(themeNames);
-      const current = $("themeSelect").value;
-      const nextIndex = (names.indexOf(current) + 1) % names.length;
-
-      setTheme(names[nextIndex]);
-    });
-
-    $("cameraBtn").addEventListener("click", () => {
-      $("cameraInput").click();
-    });
-
-    $("importBtn").addEventListener("click", () => {
-      $("fileInput").click();
-    });
-
-    function addFiles(fileList) {
-      let added = 0;
-
-      for (const file of fileList) {
-        const isPhoto = file.type.startsWith("image/");
-        const isVideo = file.type.startsWith("video/");
-
-        if (!isPhoto && !isVideo) {
-          continue;
-        }
-
-        // Avoid adding the same file repeatedly during this session.
-        const alreadyAdded = media.some((item) =>
-          item.name === file.name &&
-          item.size === file.size &&
-          item.lastModified === file.lastModified
-        );
-
-        if (alreadyAdded) {
-          continue;
-        }
-
-        media.push({
-          id: (
-            typeof crypto !== "undefined" &&
-            typeof crypto.randomUUID === "function"
-          )
-            ? crypto.randomUUID()
-            : String(Date.now() + Math.random()),
-
-          name: file.name,
-          type: isVideo ? "video" : "photo",
-          size: file.size,
-          lastModified: file.lastModified,
-          url: URL.createObjectURL(file),
-          file: file
-        });
-
-        added++;
-      }
-
-      renderMedia();
-
-      if (added > 0) {
-        setStatus(
-          added + " media file(s) added. " +
-          "They remain available until this page session ends."
-        );
-      } else {
-        setStatus("No new supported photo or video files were added.");
-      }
-    }
-
-    $("cameraInput").addEventListener("change", (event) => {
-      addFiles(event.target.files);
-      event.target.value = "";
-    });
-
-    $("fileInput").addEventListener("change", (event) => {
-      addFiles(event.target.files);
-      event.target.value = "";
-    });
-
-    function renderMedia() {
-      const query = $("searchInput").value.toLowerCase().trim();
-
-      const items = media.filter((item) =>
-        item.name.toLowerCase().includes(query)
-      );
-
-      $("photoCount").textContent = media.filter(
-        (item) => item.type === "photo"
-      ).length;
-
-      $("videoCount").textContent = media.filter(
-        (item) => item.type === "video"
-      ).length;
-
-      const grid = $("mediaGrid");
-      grid.replaceChildren();
-
-      if (items.length === 0) {
-        const empty = document.createElement("div");
-        empty.className = "empty";
-        empty.style.gridColumn = "1 / -1";
-
-        empty.textContent = media.length > 0
-          ? "No matching media found."
-          : "Your gallery is waiting. Import photos or videos to begin.";
-
-        grid.appendChild(empty);
-        return;
-      }
-
-      for (const item of items) {
-        const card = document.createElement("div");
-        card.className = "media-item";
-
-        const preview = document.createElement(
-          item.type === "video" ? "video" : "img"
-        );
-
-        preview.src = item.url;
-
-        if (item.type === "video") {
-          preview.controls = true;
-          preview.preload = "metadata";
-          preview.setAttribute("aria-label", item.name);
-        } else {
-          preview.alt = item.name;
-          preview.loading = "lazy";
-        }
-
-        const downloadButton = document.createElement("button");
-        downloadButton.type = "button";
-        downloadButton.textContent = "⬇ " + item.name;
-        downloadButton.title = "Download " + item.name;
-
-        downloadButton.addEventListener("click", () => {
-          const link = document.createElement("a");
-          link.href = item.url;
-          link.download = item.name;
-
-          document.body.appendChild(link);
-          link.click();
-          link.remove();
-        });
-
-        card.append(preview, downloadButton);
-        grid.appendChild(card);
-      }
-    }
-
-    $("searchInput").addEventListener("input", renderMedia);
-
-    document.querySelectorAll("[data-tool]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const tool = button.dataset.tool;
-
-        setStatus(
-          tool + " is not implemented yet. " +
-          "Its working features will be added in a future update."
-        );
-
-        alert(
-          tool + " is not available yet.\n\n" +
-          "We will implement this feature in a later development step."
-        );
+      store.add({
+        name: file.name || "unnamed-media",
+        type: file.type.startsWith("video/") ? "video" : "image",
+        mimeType: file.type || "application/octet-stream",
+        size: file.size,
+        createdAt: Date.now(),
+        lastModified: file.lastModified || Date.now(),
+        blob: file
       });
-    });
+      saved++;
+    } catch (error) {
+      failed++;
+      console.error("Could not queue file:", file.name, error);
+    }
+  }
 
-    $("developerBtn").addEventListener("click", () => {
-      $("developerInfo").classList.toggle("hidden");
-    });
+  try {
+    await done;
+  } catch (error) {
+    throw new Error("ফাইল সংরক্ষণ হয়নি। স্টোরেজ পূর্ণ কি না পরীক্ষা করো।");
+  }
 
-    $("albumCount").textContent = "0";
+  await loadMedia();
 
-    // PWA installation prompt, when supported by the browser.
-    window.addEventListener("beforeinstallprompt", (event) => {
-      event.preventDefault();
-      installPrompt = event;
-      $("installBtn").classList.remove("hidden");
-    });
+  if (failed) {
+    setStatus(`${saved}টি ফাইল সংরক্ষিত হয়েছে; ${failed}টি যোগ করা যায়নি।`, "error");
+  } else {
+    setStatus(`${saved}টি ফাইল IndexedDB-তে সংরক্ষিত হয়েছে।`, "success");
+  }
+}
 
-    $("installBtn").addEventListener("click", async () => {
-      if (installPrompt) {
-        installPrompt.prompt();
+function getAllRecords() {
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(STORE_NAME, "readonly");
+    const request = transaction.objectStore(STORE_NAME).getAll();
 
-        const choice = await installPrompt.userChoice;
+    request.onsuccess = () => resolve(request.result || []);
+    request.onerror = () => reject(
+      request.error || new Error("ফাইল লোড করা যায়নি।")
+    );
+  });
+}
 
-        if (choice.outcome === "accepted") {
-          setStatus("App installation accepted.");
-        } else {
-          setStatus("App installation was dismissed.");
-        }
+function clearObjectUrls() {
+  for (const url of objectUrls) URL.revokeObjectURL(url);
+  objectUrls = [];
+}
 
-        installPrompt = null;
-        $("installBtn").classList.add("hidden");
-        return;
-      }
+async function loadMedia() {
+  if (!db) return;
 
-      // Fallback for browsers without the installation prompt event.
-      if (window.matchMedia("(display-mode: standalone)").matches) {
-        setStatus("The app is already running in installed mode.");
-      } else {
-        alert(
-          "If installation is available, open the Chrome menu " +
-          "and choose Install app or Add to Home screen."
-        );
-      }
-    });
+  try {
+    allMedia = await getAllRecords();
+    renderGallery();
+    updateCounts();
+  } catch (error) {
+    console.error(error);
+    setStatus("গ্যালারি লোড করা যায়নি: " + error.message, "error");
+  }
+}
 
-    window.addEventListener("appinstalled", () => {
-      setStatus("MASTERMIND GALLERY PRO has been installed.");
-      $("installBtn").classList.add("hidden");
-      installPrompt = null;
-    });
+function updateCounts() {
+  $("totalCount").textContent = allMedia.length;
+  $("photoCount").textContent = allMedia.filter(item => item.type === "image").length;
+  $("videoCount").textContent = allMedia.filter(item => item.type === "video").length;
+}
 
-    // Register the service worker when hosted on HTTPS or localhost.
-    if ("serviceWorker" in navigator) {
-      const isSecureContext =
-        location.protocol === "https:" ||
-        location.hostname === "localhost" ||
-        location.hostname === "127.0.0.1";
+function renderGallery() {
+  clearObjectUrls();
 
-      if (isSecureContext) {
-        window.addEventListener("load", async () => {
-          try {
-            await navigator.serviceWorker.register(
-              "./service-worker.js"
-            );
+  const gallery = $("gallery");
+  gallery.replaceChildren();
 
-            setStatus(
-              "Gallery ready. Offline support has been registered."
-            );
-          } catch (error) {
-            console.error("Service worker registration failed:", error);
+  const query = $("searchInput").value.trim().toLocaleLowerCase();
+  const type = $("typeFilter").value;
+  const sort = $("sortFilter").value;
 
-            setStatus(
-              "Gallery ready, but offline support could not be registered."
-            );
-          }
-        });
+  let items = allMedia.filter(item => {
+    const matchesName = item.name.toLocaleLowerCase().includes(query);
+    const matchesType = type === "all" || item.type === type;
+    return matchesName && matchesType;
+  });
+
+  if (sort === "newest") items.sort((a, b) => b.createdAt - a.createdAt);
+  if (sort === "oldest") items.sort((a, b) => a.createdAt - b.createdAt);
+  if (sort === "name") items.sort((a, b) => a.name.localeCompare(b.name));
+
+  if (!items.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.style.gridColumn = "1 / -1";
+    empty.textContent = query
+      ? "এই নামে কোনো ফাইল পাওয়া যায়নি।"
+      : "এখনো কোনো মিডিয়া নেই। উপরের Import বোতাম দিয়ে ছবি বা ভিডিও যোগ করো।";
+    gallery.appendChild(empty);
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  for (const item of items) {
+    const card = document.createElement("article");
+    card.className = "media-card";
+
+    const url = URL.createObjectURL(item.blob);
+    objectUrls.push(url);
+
+    let preview;
+
+    if (item.type === "video") {
+      preview = document.createElement("video");
+      preview.preload = "metadata";
+      preview.muted = true;
+      preview.playsInline = true;
+    } else {
+      preview = document.createElement("img");
+      preview.loading = "lazy";
+      preview.alt = item.name;
+    }
+
+    preview.className = "preview";
+    preview.src = url;
+    preview.addEventListener("click", () => openPreview(item));
+    card.appendChild(preview);
+
+    const info = document.createElement("div");
+    info.className = "media-info";
+
+    const filename = document.createElement("div");
+    filename.className = "filename";
+    filename.textContent = item.name;
+
+    const size = document.createElement("div");
+    size.className = "filesize";
+    size.textContent = (item.type === "video" ? "ভিডিও" : "ছবি") +
+      " · " + formatBytes(item.size);
+
+    const actions = document.createElement("div");
+    actions.className = "card-actions";
+
+    const download = document.createElement("button");
+    download.textContent = "⬇ Save";
+    download.title = "ফাইল ডাউনলোড";
+    download.addEventListener("click", () => downloadMedia(item));
+
+    const remove = document.createElement("button");
+    remove.className = "danger";
+    remove.textContent = "🗑 Delete";
+    remove.title = "গ্যালারি থেকে স্থায়ীভাবে মুছুন";
+    remove.addEventListener("click", () => deleteMedia(item.id, item.name));
+
+    actions.append(download, remove);
+    info.append(filename, size, actions);
+    card.appendChild(info);
+    fragment.appendChild(card);
+  }
+
+  gallery.appendChild(fragment);
+}
+
+function openPreview(item) {
+  const content = $("lightboxContent");
+  content.replaceChildren();
+
+  const url = URL.createObjectURL(item.blob);
+  objectUrls.push(url);
+
+  let media;
+
+  if (item.type === "video") {
+    media = document.createElement("video");
+    media.controls = true;
+    media.autoplay = true;
+    media.playsInline = true;
+  } else {
+    media = document.createElement("img");
+    media.alt = item.name;
+  }
+
+  media.src = url;
+  content.appendChild(media);
+  $("lightbox").classList.remove("hidden");
+}
+
+function closePreview() {
+  $("lightbox").classList.add("hidden");
+  $("lightboxContent").replaceChildren();
+  clearObjectUrls();
+  renderGallery();
+}
+
+async function deleteMedia(id, name) {
+  if (!confirm(`"${name}" ফাইলটি এই অ্যাপের স্টোরেজ থেকে স্থায়ীভাবে মুছবে?`)) {
+    return;
+  }
+
+  try {
+    const transaction = db.transaction(STORE_NAME, "readwrite");
+    const done = transactionDone(transaction);
+    transaction.objectStore(STORE_NAME).delete(id);
+    await done;
+    await loadMedia();
+    setStatus("ফাইলটি অ্যাপের স্টোরেজ থেকে মুছে ফেলা হয়েছে।", "success");
+  } catch (error) {
+    setStatus("ফাইল মুছতে সমস্যা হয়েছে: " + error.message, "error");
+  }
+}
+
+function downloadMedia(item) {
+  const url = URL.createObjectURL(item.blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = item.name || "media";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
+async function showStorage() {
+  try {
+    let message = "এই অ্যাপের সংরক্ষিত মিডিয়া: " +
+      formatBytes(allMedia.reduce((sum, item) => sum + (item.size || 0), 0));
+
+    if (navigator.storage && navigator.storage.estimate) {
+      const estimate = await navigator.storage.estimate();
+      message += "\n\nএই origin-এর আনুমানিক ব্যবহার: " +
+        formatBytes(estimate.usage || 0) +
+        "\nআনুমানিক সর্বোচ্চ কোটা: " +
+        formatBytes(estimate.quota || 0);
+    }
+
+    if (navigator.storage && navigator.storage.persist) {
+      const persistent = await navigator.storage.persisted();
+      message += "\n\nPersistent storage: " +
+        (persistent ? "Granted" : "Not granted");
+    }
+
+    alert(message);
+  } catch (error) {
+    alert("স্টোরেজ তথ্য পাওয়া যায়নি।");
+  }
+}
+
+async function requestPersistentStorage() {
+  if (!navigator.storage || !navigator.storage.persist) {
+    alert("এই ব্রাউজারে persistent storage request সমর্থিত নয়।");
+    return;
+  }
+
+  try {
+    const granted = await navigator.storage.persist();
+    alert(granted
+      ? "ব্রাউজার persistent storage অনুমোদন করেছে। তবুও আলাদা ব্যাকআপ রাখা জরুরি।"
+      : "ব্রাউজার persistent storage অনুমোদন করেনি। গুরুত্বপূর্ণ ফাইল ডাউনলোড করে ব্যাকআপ রাখো।");
+  } catch (error) {
+    alert("Persistent storage অনুরোধ করা যায়নি।");
+  }
+}
+
+async function exportBackup() {
+  if (!allMedia.length) {
+    alert("ব্যাকআপ করার মতো কোনো মিডিয়া নেই।");
+    return;
+  }
+
+  const choice = confirm(
+    "OK চাপলে প্রতিটি ফাইল আলাদাভাবে ডাউনলোড হবে।\n" +
+    "Cancel চাপলে বাতিল হবে।\n\n" +
+    "বড় লাইব্রেরির জন্য পর্যাপ্ত জায়গা আছে কি না নিশ্চিত হও।"
+  );
+
+  if (!choice) return;
+
+  for (let i = 0; i < allMedia.length; i++) {
+    downloadMedia(allMedia[i]);
+    await new Promise(resolve => setTimeout(resolve, 250));
+  }
+
+  setStatus("ব্যাকআপ ডাউনলোড শুরু হয়েছে। ডাউনলোড ফোল্ডার পরীক্ষা করো।", "success");
+}
+
+function applyTheme(theme) {
+  const allowed = [
+    "midnight", "light", "ocean", "emerald",
+    "rose", "sunset", "black", "arctic"
+  ];
+
+  const selected = allowed.includes(theme) ? theme : "midnight";
+  document.body.dataset.theme = selected;
+  $("themeSelect").value = selected;
+
+  try {
+    localStorage.setItem("mastermind-gallery-theme", selected);
+  } catch (error) {
+    console.warn("Theme preference could not be saved.", error);
+  }
+}
+
+async function initialize() {
+  try {
+    applyTheme(localStorage.getItem("mastermind-gallery-theme") || "midnight");
+  } catch (error) {
+    applyTheme("midnight");
+  }
+
+  if (!("indexedDB" in window)) {
+    setStatus("এই ব্রাউজারে IndexedDB নেই। আপডেট করা Chrome ব্যবহার করো।", "error");
+    return;
+  }
+
+  try {
+    await openDatabase();
+    await loadMedia();
+
+    if (navigator.storage && navigator.storage.persist) {
+      try {
+        await navigator.storage.persist();
+      } catch (error) {
+        console.warn("Persistent storage request was not granted.", error);
       }
     }
-  </script>
+
+    setStatus(
+      `গ্যালারি প্রস্তুত। ${allMedia.length}টি সংরক্ষিত ফাইল পাওয়া গেছে।`,
+      "success"
+    );
+  } catch (error) {
+    console.error(error);
+    setStatus(
+      "ডেটাবেস চালু করা যায়নি: " + error.message +
+      " HTTPS ঠিকানা ব্যবহার করো এবং ব্রাউজারের স্টোরেজ সেটিংস পরীক্ষা করো।",
+      "error"
+    );
+  }
+}
+
+$("importButton").addEventListener("click", () => $("fileInput").click());
+$("cameraButton").addEventListener("click", () => $("cameraInput").click());
+
+$("fileInput").addEventListener("change", async event => {
+  if (busy) return;
+  busy = true;
+  $("importButton").disabled = true;
+
+  try {
+    await saveFiles(event.target.files);
+  } catch (error) {
+    console.error(error);
+    setStatus(error.message || "ফাইল Import করা যায়নি।", "error");
+  } finally {
+    event.target.value = "";
+    busy = false;
+    $("importButton").disabled = false;
+  }
+});
+
+$("cameraInput").addEventListener("change", async event => {
+  try {
+    await saveFiles(event.target.files);
+  } catch (error) {
+    setStatus(error.message || "ছবি Import করা যায়নি।", "error");
+  } finally {
+    event.target.value = "";
+  }
+});
+
+$("refreshButton").addEventListener("click", async () => {
+  await loadMedia();
+  setStatus("গ্যালারি রিফ্রেশ করা হয়েছে।", "success");
+});
+
+$("searchInput").addEventListener("input", renderGallery);
+$("typeFilter").addEventListener("change", renderGallery);
+$("sortFilter").addEventListener("change", renderGallery);
+$("themeSelect").addEventListener("change", event => applyTheme(event.target.value));
+$("storageButton").addEventListener("click", showStorage);
+$("backupButton").addEventListener("click", exportBackup);
+$("aboutButton").addEventListener("click", () => {
+  alert(
+    "MASTERMIND GALLERY PRO\n\n" +
+    "Developer: MASTERMIND\n" +
+    "Media storage: IndexedDB\n" +
+    "এই সংস্করণে ছবি/ভিডিও সংরক্ষণ, সার্চ, প্রিভিউ, ডাউনলোড ও ডিলিট রয়েছে।"
+  );
+});
+
+$("closeLightbox").addEventListener("click", closePreview);
+$("lightbox").addEventListener("click", event => {
+  if (event.target === $("lightbox")) closePreview();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && !$("lightbox").classList.contains("hidden")) {
+    closePreview();
+  }
+});
+
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  installPrompt = event;
+  $("installButton").classList.remove("hidden");
+});
+
+$("installButton").addEventListener("click", async () => {
+  if (!installPrompt) {
+    alert("Chrome-এর মেনু থেকে Install app নির্বাচন করো।");
+    return;
+  }
+
+  installPrompt.prompt();
+  await installPrompt.userChoice;
+  installPrompt = null;
+  $("installButton").classList.add("hidden");
+});
+
+window.addEventListener("appinstalled", () => {
+  $("installButton").classList.add("hidden");
+  setStatus("অ্যাপ ইনস্টল হয়েছে।", "success");
+});
+
+if ("serviceWorker" in navigator &&
+    (location.protocol === "https:" || location.hostname === "localhost")) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(() => console.log("Service worker registered."))
+      .catch(error => console.error("Service worker registration failed:", error));
+  });
+}
+
+window.addEventListener("pagehide", clearObjectUrls);
+
+initialize();
+</script>
 </body>
 </html>
