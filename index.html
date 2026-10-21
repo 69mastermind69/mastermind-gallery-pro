@@ -4,8 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10111b">
+  <meta name="theme-color" content="#080b16">
+  <meta name="description" content="MASTERMIND GALLERY PRO — your personal photo and video gallery.">
+  <meta name="color-scheme" content="dark light">
+
   <title>MASTERMIND GALLERY PRO</title>
+
+  <link rel="manifest" href="./manifest.json">
+
   <style>
     :root {
       color-scheme: dark;
@@ -15,24 +21,31 @@
       --muted: #aaaac2;
       --accent: #a78bfa;
       --line: #383950;
+      --shadow: 0 12px 35px #0002;
     }
-    * { box-sizing: border-box; }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font: 15px system-ui, sans-serif;
+      font: 15px system-ui, -apple-system, sans-serif;
       transition: background .25s, color .25s;
     }
+
     body.light {
       color-scheme: light;
       --bg: #f4f7fb;
-      --panel: #fff;
+      --panel: #ffffff;
       --text: #172033;
       --muted: #697386;
       --accent: #3978f6;
       --line: #dce2ed;
     }
+
     body.ocean {
       --bg: #071e2e;
       --panel: #10364a;
@@ -41,6 +54,7 @@
       --accent: #38c8e8;
       --line: #245064;
     }
+
     body.emerald {
       --bg: #0b211b;
       --panel: #183a2e;
@@ -49,6 +63,7 @@
       --accent: #42d6a0;
       --line: #305747;
     }
+
     body.rose {
       --bg: #2a171f;
       --panel: #422630;
@@ -57,6 +72,7 @@
       --accent: #f0a6b8;
       --line: #633a49;
     }
+
     body.sunset {
       --bg: #291729;
       --panel: #48243e;
@@ -65,24 +81,30 @@
       --accent: #ff9966;
       --line: #693b60;
     }
+
     body.black {
-      --bg: #000;
+      --bg: #000000;
       --panel: #141414;
-      --text: #fff;
-      --muted: #aaa;
+      --text: #ffffff;
+      --muted: #aaaaaa;
       --accent: #b8a0ff;
-      --line: #333;
+      --line: #333333;
     }
+
     body.arctic {
       color-scheme: light;
       --bg: #eaf7ff;
-      --panel: #fff;
+      --panel: #ffffff;
       --text: #14334a;
       --muted: #547487;
       --accent: #1688c9;
       --line: #c9e4f2;
     }
-    button, input, select { font: inherit; }
+
+    button, input, select {
+      font: inherit;
+    }
+
     button {
       cursor: pointer;
       border: 1px solid var(--line);
@@ -90,127 +112,436 @@
       background: var(--panel);
       padding: 11px 14px;
       border-radius: 13px;
-      transition: transform .2s, border-color .2s;
+      transition: transform .2s, border-color .2s, opacity .2s;
     }
-    button:hover { transform: translateY(-2px); border-color: var(--accent); }
-    .app { max-width: 1100px; margin: auto; padding: 20px; }
+
+    button:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .55;
+      transform: none;
+    }
+
+    .app {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
     header {
-      display: flex; align-items: center;
-      justify-content: space-between; gap: 12px;
-      flex-wrap: wrap; margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
     }
-    .brand { font-size: 19px; font-weight: 850; letter-spacing: .5px; }
-    .brand span { color: var(--accent); }
-    .sub { color: var(--muted); font-size: 12px; margin-top: 5px; }
+
+    .brand {
+      font-size: 19px;
+      font-weight: 850;
+      letter-spacing: .5px;
+    }
+
+    .brand span,
+    .accent-text {
+      color: var(--accent);
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
     .hero {
-      padding: 24px; border-radius: 24px;
+      padding: 24px;
+      border-radius: 24px;
       background: linear-gradient(135deg, var(--panel), var(--bg));
-      border: 1px solid var(--line); margin-bottom: 20px;
+      border: 1px solid var(--line);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
     }
-    h1 { font-size: clamp(25px, 5vw, 38px); margin: 0 0 8px; }
-    h2 { font-size: 19px; margin: 0 0 14px; }
-    p { line-height: 1.6; }
-    .muted { color: var(--muted); }
-    .actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 17px; }
-    .primary { background: var(--accent); color: #11121b; border-color: transparent; font-weight: 750; }
-    .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 18px 0 24px; }
-    .stat, .section, .tile {
-      background: var(--panel); border: 1px solid var(--line); border-radius: 18px;
+
+    h1 {
+      font-size: clamp(25px, 5vw, 38px);
+      margin: 0 0 8px;
     }
-    .stat { padding: 16px; }
-    .stat strong { display: block; font-size: 26px; margin-top: 8px; }
-    .stat span { color: var(--muted); font-size: 13px; }
-    .section { padding: 19px; margin-bottom: 20px; }
-    .grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 11px; }
-    .tile { padding: 16px 10px; text-align: center; min-width: 0; }
-    .tile .emoji { font-size: 27px; display: block; margin-bottom: 9px; }
-    .tile strong { font-size: 13px; display: block; }
-    .tile small { display: block; margin-top: 6px; color: var(--muted); }
-    input, select {
-      background: var(--bg); color: var(--text);
-      border: 1px solid var(--line); border-radius: 12px;
-      padding: 12px; width: 100%; min-width: 0;
+
+    h2 {
+      font-size: 19px;
+      margin: 0 0 14px;
     }
-    .searchrow { display: flex; gap: 9px; margin-bottom: 15px; }
-    .media-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
-    .media-item { overflow: hidden; border: 1px solid var(--line); border-radius: 13px; }
-    .media-item img, .media-item video { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--bg); }
-    .media-item button { width: 100%; border-radius: 0; border: 0; font-size: 12px; }
-    .empty { color: var(--muted); text-align: center; padding: 25px 8px; }
-    .hidden { display: none !important; }
-    footer { text-align: center; color: var(--muted); padding: 25px 5px; font-size: 12px; }
-    @media(max-width: 600px) {
-      .app { padding: 13px; }
-      .stats { gap: 7px; }
-      .stat { padding: 12px 9px; }
-      .stat strong { font-size: 22px; }
-      .grid { grid-template-columns: repeat(2,1fr); }
-      .hero { padding: 19px; }
+
+    p {
+      line-height: 1.6;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 17px;
+    }
+
+    .primary {
+      background: var(--accent);
+      color: #11121b;
+      border-color: transparent;
+      font-weight: 750;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 18px 0 24px;
+    }
+
+    .stat,
+    .section,
+    .tile {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+
+    .stat {
+      padding: 16px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 26px;
+      margin-top: 8px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section {
+      padding: 19px;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 11px;
+    }
+
+    .tile {
+      padding: 16px 10px;
+      text-align: center;
+      min-width: 0;
+    }
+
+    .tile .emoji {
+      font-size: 27px;
+      display: block;
+      margin-bottom: 9px;
+    }
+
+    .tile strong {
+      font-size: 13px;
+      display: block;
+    }
+
+    .tile small {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+    }
+
+    input,
+    select {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .searchrow {
+      display: flex;
+      gap: 9px;
+      margin-bottom: 15px;
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .media-item {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      min-width: 0;
+    }
+
+    .media-item img,
+    .media-item video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      background: var(--bg);
+    }
+
+    .media-item button {
+      width: 100%;
+      border-radius: 0;
+      border: 0;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .empty {
+      color: var(--muted);
+      text-align: center;
+      padding: 25px 8px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .status {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 25px 5px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .app {
+        padding: 13px;
+      }
+
+      .stats {
+        gap: 7px;
+      }
+
+      .stat {
+        padding: 12px 9px;
+      }
+
+      .stat strong {
+        font-size: 22px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero {
+        padding: 19px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
+
 <body>
   <main class="app">
     <header>
       <div>
-        <div class="brand">MASTERMIND <span>GALLERY PRO</span></div>
+        <div class="brand">
+          MASTERMIND <span>GALLERY PRO</span>
+        </div>
         <div class="sub">YOUR MEMORIES. YOUR CONTROL.</div>
       </div>
-      <button id="themeQuick">🎨 Change Theme</button>
+
+      <button id="themeQuick" type="button">🎨 Change Theme</button>
     </header>
 
     <section class="hero">
       <div class="sub">WELCOME TO YOUR PERSONAL GALLERY</div>
-      <h1>Your world.<br><span style="color:var(--accent)">Your memories.</span></h1>
-      <p class="muted">Photos, videos and creative tools in one place.</p>
+
+      <h1>
+        Your world.<br>
+        <span class="accent-text">Your memories.</span>
+      </h1>
+
+      <p class="muted">
+        Photos, videos and creative tools in one place.
+      </p>
+
       <div class="actions">
-        <button class="primary" id="cameraBtn">📸 Open Camera</button>
-        <button id="importBtn">＋ Import Media</button>
-        <button id="installBtn" class="hidden">⬇ Install App</button>
+        <button class="primary" id="cameraBtn" type="button">
+          📸 Open Camera
+        </button>
+
+        <button id="importBtn" type="button">
+          ＋ Import Media
+        </button>
+
+        <button id="installBtn" class="hidden" type="button">
+          ⬇ Install App
+        </button>
       </div>
-      <input id="cameraInput" class="hidden" type="file" accept="image/*,video/*" capture="environment">
-      <input id="fileInput" class="hidden" type="file" accept="image/*,video/*" multiple>
+
+      <input
+        id="cameraInput"
+        class="hidden"
+        type="file"
+        accept="image/*,video/*"
+        capture="environment"
+        aria-label="Capture a photo or video"
+      >
+
+      <input
+        id="fileInput"
+        class="hidden"
+        type="file"
+        accept="image/*,video/*"
+        multiple
+        aria-label="Import photos and videos"
+      >
+
+      <div id="appStatus" class="status" role="status" aria-live="polite">
+        Gallery ready. Import media to begin.
+      </div>
     </section>
 
-    <section class="stats">
-      <div class="stat"><span>📷 Photos</span><strong id="photoCount">0</strong></div>
-      <div class="stat"><span>🎬 Videos</span><strong id="videoCount">0</strong></div>
-      <div class="stat"><span>📁 Albums</span><strong id="albumCount">0</strong></div>
+    <section class="stats" aria-label="Gallery statistics">
+      <div class="stat">
+        <span>📷 Photos</span>
+        <strong id="photoCount">0</strong>
+      </div>
+
+      <div class="stat">
+        <span>🎬 Videos</span>
+        <strong id="videoCount">0</strong>
+      </div>
+
+      <div class="stat">
+        <span>📁 Albums</span>
+        <strong id="albumCount">0</strong>
+      </div>
     </section>
 
     <section class="section">
       <h2>🔎 Find Your Memories</h2>
+
       <div class="searchrow">
-        <input id="searchInput" placeholder="Search media by name..." aria-label="Search media">
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search media by name..."
+          aria-label="Search media by filename"
+        >
       </div>
+
       <div class="media-grid" id="mediaGrid">
-        <div class="empty" style="grid-column:1/-1">Your gallery is waiting.<br>Import some photos or videos to begin.</div>
+        <div class="empty" style="grid-column:1/-1">
+          Your gallery is waiting.<br>
+          Import photos or videos to begin.
+        </div>
       </div>
     </section>
 
     <section class="section">
       <h2>✨ Creative Studio</h2>
+
       <div class="grid">
-        <button class="tile" data-tool="Photo Editor"><span class="emoji">🖼️</span><strong>Photo Editor</strong><small>Filters & crop</small></button>
-        <button class="tile" data-tool="Video Editor"><span class="emoji">🎞️</span><strong>Video Editor</strong><small>Trim & tools</small></button>
-        <button class="tile" data-tool="PDF Maker"><span class="emoji">📄</span><strong>PDF Maker</strong><small>Images to PDF</small></button>
-        <button class="tile" data-tool="QR Studio"><span class="emoji">▦</span><strong>QR Studio</strong><small>Create QR</small></button>
+        <button class="tile" data-tool="Photo Editor" type="button">
+          <span class="emoji">🖼️</span>
+          <strong>Photo Editor</strong>
+          <small>Filters &amp; crop</small>
+        </button>
+
+        <button class="tile" data-tool="Video Editor" type="button">
+          <span class="emoji">🎞️</span>
+          <strong>Video Editor</strong>
+          <small>Trim &amp; tools</small>
+        </button>
+
+        <button class="tile" data-tool="PDF Maker" type="button">
+          <span class="emoji">📄</span>
+          <strong>PDF Maker</strong>
+          <small>Images to PDF</small>
+        </button>
+
+        <button class="tile" data-tool="QR Studio" type="button">
+          <span class="emoji">▦</span>
+          <strong>QR Studio</strong>
+          <small>Create QR</small>
+        </button>
       </div>
     </section>
 
     <section class="section">
       <h2>🗂️ Media Manager</h2>
+
       <div class="grid">
-        <button class="tile" data-tool="Albums"><span class="emoji">📁</span><strong>Albums</strong><small>Organize media</small></button>
-        <button class="tile" data-tool="Trash"><span class="emoji">🗑️</span><strong>Trash</strong><small>Restore items</small></button>
-        <button class="tile" data-tool="Private Vault"><span class="emoji">🔐</span><strong>Private Vault</strong><small>Privacy tools</small></button>
-        <button class="tile" data-tool="Settings"><span class="emoji">⚙️</span><strong>Settings</strong><small>App preferences</small></button>
+        <button class="tile" data-tool="Albums" type="button">
+          <span class="emoji">📁</span>
+          <strong>Albums</strong>
+          <small>Organize media</small>
+        </button>
+
+        <button class="tile" data-tool="Trash" type="button">
+          <span class="emoji">🗑️</span>
+          <strong>Trash</strong>
+          <small>Restore items</small>
+        </button>
+
+        <button class="tile" data-tool="Private Vault" type="button">
+          <span class="emoji">🔐</span>
+          <strong>Private Vault</strong>
+          <small>Privacy tools</small>
+        </button>
+
+        <button class="tile" data-tool="Settings" type="button">
+          <span class="emoji">⚙️</span>
+          <strong>Settings</strong>
+          <small>App preferences</small>
+        </button>
       </div>
     </section>
 
     <section class="section" id="themeSection">
-      <h2>🎨 Appearance & Themes</h2>
+      <h2>🎨 Appearance &amp; Themes</h2>
       <p class="muted">Choose your favourite style.</p>
+
       <select id="themeSelect" aria-label="Choose theme">
         <option value="midnight">Midnight Purple</option>
         <option value="light">Modern Light</option>
@@ -225,114 +556,257 @@
 
     <section class="section">
       <h2>👨‍💻 Developer</h2>
-      <p class="muted">Designed for creativity, privacy and offline use.</p>
-      <button class="primary" id="developerBtn">DEVELOPER — MASTERMIND</button>
-      <p id="developerInfo" class="muted hidden">MASTERMIND GALLERY PRO · Personal Media Studio</p>
+      <p class="muted">
+        Designed for creativity, privacy and offline use.
+      </p>
+
+      <button class="primary" id="developerBtn" type="button">
+        DEVELOPER — MASTERMIND
+      </button>
+
+      <p id="developerInfo" class="muted hidden">
+        MASTERMIND GALLERY PRO · Personal Media Studio
+      </p>
     </section>
 
-    <footer>MASTERMIND GALLERY PRO · Your personal media space</footer>
+    <footer>
+      MASTERMIND GALLERY PRO · Your personal media space
+    </footer>
   </main>
 
   <script>
-    const $ = id => document.getElementById(id);
+    "use strict";
+
+    const $ = (id) => document.getElementById(id);
+
+    // Media imported during this page session.
+    // Permanent media storage will be added in a later version.
     let media = [];
     let installPrompt = null;
 
-    // Restore the selected theme.
     const themeNames = {
-      midnight: "", light: "light", ocean: "ocean",
-      emerald: "emerald", rose: "rose", sunset: "sunset",
-      black: "black", arctic: "arctic"
+      midnight: "",
+      light: "light",
+      ocean: "ocean",
+      emerald: "emerald",
+      rose: "rose",
+      sunset: "sunset",
+      black: "black",
+      arctic: "arctic"
     };
 
+    function setStatus(message) {
+      $("appStatus").textContent = message;
+    }
+
     function setTheme(name) {
-      document.body.className = themeNames[name] || "";
+      if (!Object.prototype.hasOwnProperty.call(themeNames, name)) {
+        name = "midnight";
+      }
+
+      document.body.className = themeNames[name];
       $("themeSelect").value = name;
-      try { localStorage.setItem("mmgp-theme", name); } catch {}
+
+      try {
+        localStorage.setItem("mmgp-theme", name);
+      } catch (error) {
+        console.warn("Theme preference could not be saved.", error);
+      }
+
+      const themeColor =
+        name === "light" || name === "arctic"
+          ? "#f4f7fb"
+          : name === "ocean"
+            ? "#071e2e"
+            : "#080b16";
+
+      const themeMeta = document.querySelector(
+        'meta[name="theme-color"]'
+      );
+
+      if (themeMeta) {
+        themeMeta.setAttribute("content", themeColor);
+      }
     }
 
     let savedTheme = "midnight";
-    try { savedTheme = localStorage.getItem("mmgp-theme") || "midnight"; } catch {}
+
+    try {
+      savedTheme = localStorage.getItem("mmgp-theme") || "midnight";
+    } catch (error) {
+      console.warn("Could not read saved theme.", error);
+    }
+
     setTheme(savedTheme);
 
-    $("themeSelect").addEventListener("change", e => setTheme(e.target.value));
+    $("themeSelect").addEventListener("change", (event) => {
+      setTheme(event.target.value);
+    });
+
     $("themeQuick").addEventListener("click", () => {
       const names = Object.keys(themeNames);
       const current = $("themeSelect").value;
-      setTheme(names[(names.indexOf(current) + 1) % names.length]);
+      const nextIndex = (names.indexOf(current) + 1) % names.length;
+
+      setTheme(names[nextIndex]);
     });
 
-    $("cameraBtn").addEventListener("click", () => $("cameraInput").click());
-    $("importBtn").addEventListener("click", () => $("fileInput").click());
+    $("cameraBtn").addEventListener("click", () => {
+      $("cameraInput").click();
+    });
 
-    function addFiles(files) {
-      for (const file of files) {
-        if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) continue;
+    $("importBtn").addEventListener("click", () => {
+      $("fileInput").click();
+    });
+
+    function addFiles(fileList) {
+      let added = 0;
+
+      for (const file of fileList) {
+        const isPhoto = file.type.startsWith("image/");
+        const isVideo = file.type.startsWith("video/");
+
+        if (!isPhoto && !isVideo) {
+          continue;
+        }
+
+        // Avoid adding the same file repeatedly during this session.
+        const alreadyAdded = media.some((item) =>
+          item.name === file.name &&
+          item.size === file.size &&
+          item.lastModified === file.lastModified
+        );
+
+        if (alreadyAdded) {
+          continue;
+        }
+
         media.push({
-          id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()),
+          id: (
+            typeof crypto !== "undefined" &&
+            typeof crypto.randomUUID === "function"
+          )
+            ? crypto.randomUUID()
+            : String(Date.now() + Math.random()),
+
           name: file.name,
-          type: file.type.startsWith("video/") ? "video" : "photo",
+          type: isVideo ? "video" : "photo",
+          size: file.size,
+          lastModified: file.lastModified,
           url: URL.createObjectURL(file),
-          file
+          file: file
         });
+
+        added++;
       }
+
       renderMedia();
+
+      if (added > 0) {
+        setStatus(
+          added + " media file(s) added. " +
+          "They remain available until this page session ends."
+        );
+      } else {
+        setStatus("No new supported photo or video files were added.");
+      }
     }
 
-    $("cameraInput").addEventListener("change", e => {
-      addFiles(e.target.files);
-      e.target.value = "";
+    $("cameraInput").addEventListener("change", (event) => {
+      addFiles(event.target.files);
+      event.target.value = "";
     });
-    $("fileInput").addEventListener("change", e => {
-      addFiles(e.target.files);
-      e.target.value = "";
+
+    $("fileInput").addEventListener("change", (event) => {
+      addFiles(event.target.files);
+      event.target.value = "";
     });
 
     function renderMedia() {
       const query = $("searchInput").value.toLowerCase().trim();
-      const items = media.filter(item => item.name.toLowerCase().includes(query));
-      $("photoCount").textContent = media.filter(x => x.type === "photo").length;
-      $("videoCount").textContent = media.filter(x => x.type === "video").length;
+
+      const items = media.filter((item) =>
+        item.name.toLowerCase().includes(query)
+      );
+
+      $("photoCount").textContent = media.filter(
+        (item) => item.type === "photo"
+      ).length;
+
+      $("videoCount").textContent = media.filter(
+        (item) => item.type === "video"
+      ).length;
 
       const grid = $("mediaGrid");
       grid.replaceChildren();
 
-      if (!items.length) {
+      if (items.length === 0) {
         const empty = document.createElement("div");
         empty.className = "empty";
-        empty.style.gridColumn = "1/-1";
-        empty.textContent = media.length ? "No matching media found." : "Your gallery is waiting. Import photos or videos to begin.";
-        grid.append(empty);
+        empty.style.gridColumn = "1 / -1";
+
+        empty.textContent = media.length > 0
+          ? "No matching media found."
+          : "Your gallery is waiting. Import photos or videos to begin.";
+
+        grid.appendChild(empty);
         return;
       }
 
       for (const item of items) {
         const card = document.createElement("div");
         card.className = "media-item";
-        const preview = document.createElement(item.type === "video" ? "video" : "img");
-        preview.src = item.url;
-        if (item.type === "video") preview.controls = true;
-        else preview.alt = item.name;
 
-        const label = document.createElement("button");
-        label.textContent = item.name;
-        label.title = "Download " + item.name;
-        label.addEventListener("click", () => {
-          const a = document.createElement("a");
-          a.href = item.url;
-          a.download = item.name;
-          a.click();
+        const preview = document.createElement(
+          item.type === "video" ? "video" : "img"
+        );
+
+        preview.src = item.url;
+
+        if (item.type === "video") {
+          preview.controls = true;
+          preview.preload = "metadata";
+          preview.setAttribute("aria-label", item.name);
+        } else {
+          preview.alt = item.name;
+          preview.loading = "lazy";
+        }
+
+        const downloadButton = document.createElement("button");
+        downloadButton.type = "button";
+        downloadButton.textContent = "⬇ " + item.name;
+        downloadButton.title = "Download " + item.name;
+
+        downloadButton.addEventListener("click", () => {
+          const link = document.createElement("a");
+          link.href = item.url;
+          link.download = item.name;
+
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
         });
-        card.append(preview, label);
-        grid.append(card);
+
+        card.append(preview, downloadButton);
+        grid.appendChild(card);
       }
     }
 
     $("searchInput").addEventListener("input", renderMedia);
 
-    document.querySelectorAll("[data-tool]").forEach(button => {
+    document.querySelectorAll("[data-tool]").forEach((button) => {
       button.addEventListener("click", () => {
-        alert(button.dataset.tool + " will be added in the next development step.");
+        const tool = button.dataset.tool;
+
+        setStatus(
+          tool + " is not implemented yet. " +
+          "Its working features will be added in a future update."
+        );
+
+        alert(
+          tool + " is not available yet.\n\n" +
+          "We will implement this feature in a later development step."
+        );
       });
     });
 
@@ -342,26 +816,73 @@
 
     $("albumCount").textContent = "0";
 
-    // Allow installation when the browser supports the PWA install prompt.
-    window.addEventListener("beforeinstallprompt", event => {
+    // PWA installation prompt, when supported by the browser.
+    window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault();
       installPrompt = event;
       $("installBtn").classList.remove("hidden");
     });
 
     $("installBtn").addEventListener("click", async () => {
-      if (!installPrompt) return;
-      installPrompt.prompt();
-      await installPrompt.userChoice;
-      installPrompt = null;
-      $("installBtn").classList.add("hidden");
+      if (installPrompt) {
+        installPrompt.prompt();
+
+        const choice = await installPrompt.userChoice;
+
+        if (choice.outcome === "accepted") {
+          setStatus("App installation accepted.");
+        } else {
+          setStatus("App installation was dismissed.");
+        }
+
+        installPrompt = null;
+        $("installBtn").classList.add("hidden");
+        return;
+      }
+
+      // Fallback for browsers without the installation prompt event.
+      if (window.matchMedia("(display-mode: standalone)").matches) {
+        setStatus("The app is already running in installed mode.");
+      } else {
+        alert(
+          "If installation is available, open the Chrome menu " +
+          "and choose Install app or Add to Home screen."
+        );
+      }
     });
 
-    // Register the offline service worker when hosted over HTTPS.
-    if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js").catch(console.error);
-      });
+    window.addEventListener("appinstalled", () => {
+      setStatus("MASTERMIND GALLERY PRO has been installed.");
+      $("installBtn").classList.add("hidden");
+      installPrompt = null;
+    });
+
+    // Register the service worker when hosted on HTTPS or localhost.
+    if ("serviceWorker" in navigator) {
+      const isSecureContext =
+        location.protocol === "https:" ||
+        location.hostname === "localhost" ||
+        location.hostname === "127.0.0.1";
+
+      if (isSecureContext) {
+        window.addEventListener("load", async () => {
+          try {
+            await navigator.serviceWorker.register(
+              "./service-worker.js"
+            );
+
+            setStatus(
+              "Gallery ready. Offline support has been registered."
+            );
+          } catch (error) {
+            console.error("Service worker registration failed:", error);
+
+            setStatus(
+              "Gallery ready, but offline support could not be registered."
+            );
+          }
+        });
+      }
     }
   </script>
 </body>
