@@ -3,9 +3,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#7c5cff">
-  <meta name="description" content="MASTERMIND GALLERY PRO - Your personal photo and video gallery.">
+  <meta name="description" content="MASTERMIND GALLERY PRO photo and video manager">
   <title>MASTERMIND GALLERY PRO</title>
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
@@ -15,182 +15,173 @@
       color-scheme: dark;
       --bg: #080b16;
       --panel: #11172a;
-      --panel2: #19213a;
-      --text: #f4f5ff;
-      --muted: #a3acc8;
-      --accent: #8b70ff;
-      --border: #2b3453;
-      --danger: #ff657c;
+      --panel2: #1a2240;
+      --text: #f5f5ff;
+      --muted: #a8b0cc;
+      --accent: #8065ff;
+      --border: #303956;
+      --danger: #ff7185;
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      min-height: 100vh;
       background: var(--bg);
       color: var(--text);
       font-family: Arial, Helvetica, sans-serif;
-      transition: background .2s, color .2s;
     }
 
     body[data-theme="light"] {
       color-scheme: light;
-      --bg: #f2f4fb;
-      --panel: #ffffff;
-      --panel2: #e9edfa;
-      --text: #18203a;
+      --bg: #f0f3fb;
+      --panel: #fff;
+      --panel2: #e8edfa;
+      --text: #19223a;
       --muted: #5d6680;
-      --accent: #6745df;
-      --border: #d6dced;
-      --danger: #c92f4d;
+      --accent: #6345dd;
+      --border: #d5dced;
     }
 
     body[data-theme="ocean"] {
-      --bg: #061923; --panel: #0c2938; --panel2: #12394b;
-      --accent: #31c5d8; --border: #235064;
+      --bg: #061923; --panel: #0d2938;
+      --panel2: #14394c; --accent: #31c5d8;
+      --border: #285164;
     }
 
     body[data-theme="emerald"] {
-      --bg: #071b16; --panel: #102b22; --panel2: #1b4032;
-      --accent: #34d399; --border: #285643;
+      --bg: #071b16; --panel: #102b22;
+      --panel2: #1b4032; --accent: #34d399;
+      --border: #285643;
     }
 
     body[data-theme="rose"] {
-      --bg: #210d19; --panel: #351426; --panel2: #4a1b35;
-      --accent: #fb7185; --border: #64304b;
+      --bg: #210d19; --panel: #351426;
+      --panel2: #4a1b35; --accent: #fb7185;
+      --border: #64304b;
     }
 
     body[data-theme="sunset"] {
-      --bg: #20110d; --panel: #382018; --panel2: #512d20;
-      --accent: #fb923c; --border: #68402d;
+      --bg: #20110d; --panel: #382018;
+      --panel2: #512d20; --accent: #fb923c;
+      --border: #68402d;
     }
 
     body[data-theme="black"] {
-      --bg: #000; --panel: #101010; --panel2: #1c1c1c;
-      --accent: #b9a5ff; --border: #333;
+      --bg: #000; --panel: #101010;
+      --panel2: #202020; --accent: #b9a5ff;
+      --border: #373737;
     }
 
     body[data-theme="arctic"] {
       color-scheme: light;
-      --bg: #edf7ff; --panel: #fff; --panel2: #dcefff;
-      --text: #15283d; --muted: #5c7187; --accent: #087fc4;
+      --bg: #edf7ff; --panel: #fff;
+      --panel2: #dcefff; --text: #15283d;
+      --muted: #5c7187; --accent: #087fc4;
       --border: #c5dfef;
     }
 
     button, input, select { font: inherit; }
 
     button {
-      cursor: pointer;
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 11px 15px;
+      border-radius: 11px;
+      padding: 11px 14px;
       background: var(--panel2);
       color: var(--text);
-      transition: transform .15s, opacity .15s;
+      cursor: pointer;
     }
 
-    button:hover { transform: translateY(-1px); }
-    button:disabled { cursor: not-allowed; opacity: .55; }
-    button.primary { background: var(--accent); color: #fff; border-color: transparent; }
+    button:hover { filter: brightness(1.1); }
+    button:disabled { opacity: .5; cursor: wait; }
+    button.primary { background: var(--accent); color: white; border: 0; }
     button.danger { color: var(--danger); }
-    button.small { padding: 7px 10px; font-size: 13px; }
+    button.small { padding: 7px 9px; font-size: 12px; }
 
     header {
-      padding: 20px clamp(16px, 4vw, 42px);
-      border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
+      gap: 15px;
       flex-wrap: wrap;
+      padding: 18px clamp(14px, 4vw, 40px);
       background: var(--panel);
+      border-bottom: 1px solid var(--border);
     }
 
     .brand { display: flex; align-items: center; gap: 12px; }
-
-    .brand img {
-      width: 48px; height: 48px; object-fit: contain;
-      border-radius: 13px;
-    }
-
+    .brand img { width: 46px; height: 46px; object-fit: contain; }
     h1 { font-size: clamp(18px, 3vw, 25px); margin: 0; }
-    h2 { font-size: 19px; margin: 0 0 14px; }
-    h3 { font-size: 15px; margin: 0 0 8px; }
-    p { line-height: 1.55; }
-    .muted { color: var(--muted); }
-    .subtitle { margin: 5px 0 0; font-size: 13px; color: var(--muted); }
+    h2 { font-size: 19px; margin: 0 0 15px; }
+    h3 { font-size: 15px; }
+    p { line-height: 1.5; }
+    .muted, .subtitle { color: var(--muted); }
+    .subtitle { font-size: 12px; margin: 5px 0 0; }
 
     main {
       width: min(1400px, 100%);
+      padding: 22px clamp(12px, 3vw, 32px);
       margin: auto;
-      padding: 22px clamp(14px, 3vw, 32px) 40px;
     }
 
     .panel {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 18px;
+      border-radius: 17px;
       padding: 18px;
       margin-bottom: 18px;
     }
 
-    .hero {
-      background: linear-gradient(135deg, var(--panel), var(--panel2));
-      padding: clamp(20px, 4vw, 34px);
+    .hero { background: linear-gradient(135deg, var(--panel), var(--panel2)); }
+    .hero h2 { font-size: clamp(23px, 4vw, 34px); margin-bottom: 8px; }
+    .hero p { color: var(--muted); }
+
+    .actions, .toolbar, .stats, .feature-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    .hero h2 { font-size: clamp(22px, 4vw, 34px); margin-bottom: 8px; }
-    .hero p { color: var(--muted); margin: 0 0 20px; }
-
-    .actions, .toolbar, .feature-grid, .stats {
-      display: flex; gap: 10px; flex-wrap: wrap;
-    }
-
-    .stats { margin-top: 20px; }
-
+    .stats { margin-top: 22px; }
     .stat {
-      flex: 1 1 110px;
-      min-width: 100px;
-      padding: 14px;
+      flex: 1 1 100px;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
       background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
     }
 
-    .stat strong { display: block; font-size: 24px; margin-bottom: 5px; }
-    .stat span { color: var(--muted); font-size: 12px; }
+    .stat strong { display: block; font-size: 23px; }
+    .stat span { font-size: 12px; color: var(--muted); }
 
-    .status {
-      padding: 12px 14px;
+    #status {
+      margin-bottom: 18px;
       border: 1px solid var(--border);
       background: var(--panel2);
-      border-radius: 12px;
-      color: var(--muted);
-      font-size: 14px;
+      padding: 13px;
+      border-radius: 11px;
       overflow-wrap: anywhere;
+      font-size: 14px;
     }
 
-    .status.error { color: var(--danger); }
-    .status.success { color: #34d399; }
+    #status.success { color: #38d996; }
+    #status.error { color: var(--danger); }
 
-    .toolbar { align-items: center; margin-bottom: 16px; }
-    .toolbar input, .toolbar select, .setting-select {
-      min-width: 0;
-      padding: 11px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--panel2);
+    .toolbar { margin-bottom: 16px; }
+    input, select {
       color: var(--text);
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px;
+      min-width: 0;
     }
 
-    .toolbar input { flex: 1 1 200px; }
-    .toolbar select { flex: 0 1 155px; }
-
+    #searchInput { flex: 1 1 180px; }
     .media-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
-      gap: 14px;
+      gap: 13px;
     }
 
     .media-card {
@@ -198,680 +189,662 @@
       overflow: hidden;
       background: var(--panel2);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 13px;
     }
 
     .media-preview {
-      width: 100%;
-      height: 165px;
-      object-fit: cover;
       display: block;
+      width: 100%;
+      height: 160px;
       background: #05070c;
+      object-fit: cover;
       cursor: pointer;
     }
 
-    .video-preview { object-fit: contain; }
-
+    .media-preview.video { object-fit: contain; }
     .media-info { padding: 10px; }
-    .media-name {
-      font-size: 13px;
-      overflow-wrap: anywhere;
-      margin-bottom: 7px;
-    }
-
-    .media-meta { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
-    .card-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+    .media-name { font-size: 13px; overflow-wrap: anywhere; }
+    .media-meta { font-size: 11px; color: var(--muted); margin: 8px 0; }
+    .card-actions { display: flex; gap: 5px; flex-wrap: wrap; }
     .card-actions button { flex: 1; }
 
     .empty {
       text-align: center;
-      padding: 35px 12px;
-      color: var(--muted);
       border: 1px dashed var(--border);
-      border-radius: 14px;
+      border-radius: 13px;
+      padding: 30px 12px;
+      color: var(--muted);
     }
 
-    .feature-grid > button { flex: 1 1 140px; text-align: left; }
-    .feature-grid strong { display: block; margin-bottom: 5px; }
-    .feature-grid span { display: block; color: var(--muted); font-size: 12px; }
+    .feature-grid button { flex: 1 1 140px; text-align: left; }
+    .feature-grid strong, .feature-grid span { display: block; }
+    .feature-grid span { color: var(--muted); font-size: 12px; margin-top: 5px; }
 
     .settings-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
       flex-wrap: wrap;
+      gap: 12px;
     }
 
-    footer {
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-      padding: 24px 12px;
-    }
+    footer { text-align: center; color: var(--muted); padding: 25px 10px; font-size: 12px; }
+    .hidden { display: none !important; }
 
     dialog {
       width: min(900px, 94vw);
       max-height: 90vh;
-      padding: 16px;
-      border: 1px solid var(--border);
-      border-radius: 16px;
       background: var(--panel);
       color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 15px;
     }
 
     dialog::backdrop { background: #000b; }
-
-    #lightboxContent {
+    #previewContent {
       display: block;
       max-width: 100%;
       max-height: 70vh;
-      margin: 12px auto;
+      margin: 15px auto;
       object-fit: contain;
     }
 
-    .dialog-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .hidden { display: none !important; }
-
-    @media (max-width: 500px) {
-      header { padding: 14px; }
-      .brand img { width: 40px; height: 40px; }
-      .panel { padding: 14px; }
+    @media(max-width: 500px) {
+      .panel { padding: 13px; }
       .media-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .media-preview { height: 135px; }
-      .card-actions button { font-size: 11px; padding: 7px 5px; }
+      .media-preview { height: 130px; }
+      .card-actions button { padding: 7px 4px; font-size: 11px; }
     }
   </style>
 </head>
 
 <body data-theme="midnight">
-  <header>
-    <div class="brand">
-      <img src="./icon.svg" alt="Mastermind Gallery logo">
-      <div>
-        <h1>MASTERMIND GALLERY PRO</h1>
-        <p class="subtitle">Your personal photo &amp; video library</p>
-      </div>
+<header>
+  <div class="brand">
+    <img src="./icon.svg" alt="App logo">
+    <div>
+      <h1>MASTERMIND GALLERY PRO</h1>
+      <p class="subtitle">Your personal photo &amp; video library</p>
     </div>
-    <button id="installButton" class="primary hidden" type="button">Install App</button>
-  </header>
+  </div>
+  <button id="installButton" class="primary hidden" type="button">Install App</button>
+</header>
 
-  <main>
-    <section class="panel hero">
-      <h2>Your gallery is waiting.</h2>
-      <p>Import photos or videos to begin. Your imported media is saved in this browser on this device.</p>
+<main>
+  <section class="panel hero">
+    <h2>Your gallery is waiting.</h2>
+    <p>Import photos or videos to begin. Your files are stored in this browser on this device.</p>
 
-      <div class="actions">
-        <button id="importButton" class="primary" type="button">＋ Import Photos / Videos</button>
-        <button id="cameraButton" type="button">📷 Choose Camera Photo</button>
-        <button id="refreshButton" type="button">↻ Reload Gallery</button>
-        <input id="fileInput" type="file" accept="image/*,video/*" multiple hidden>
-        <input id="cameraInput" type="file" accept="image/*" capture="environment" hidden>
-      </div>
-
-      <div class="stats">
-        <div class="stat"><strong id="totalCount">0</strong><span>Total files</span></div>
-        <div class="stat"><strong id="photoCount">0</strong><span>Photos</span></div>
-        <div class="stat"><strong id="videoCount">0</strong><span>Videos</span></div>
-        <div class="stat"><strong id="storageUsed">0 B</strong><span>App media storage</span></div>
-      </div>
-    </section>
-
-    <div id="status" class="status" role="status" aria-live="polite">Gallery is starting…</div>
-
-    <section class="panel">
-      <h2>My Media</h2>
-      <div class="toolbar">
-        <input id="searchInput" type="search" placeholder="Search by file name…" aria-label="Search media">
-        <select id="typeFilter" aria-label="Filter media type">
-          <option value="all">All files</option>
-          <option value="image">Photos only</option>
-          <option value="video">Videos only</option>
-        </select>
-        <select id="sortOrder" aria-label="Sort media">
-          <option value="newest">Newest first</option>
-          <option value="oldest">Oldest first</option>
-          <option value="name">Name A–Z</option>
-          <option value="largest">Largest first</option>
-        </select>
-      </div>
-      <div id="mediaGrid" class="media-grid"></div>
-      <div id="emptyMessage" class="empty hidden">
-        <h3 id="emptyTitle">Your gallery is waiting.</h3>
-        <p id="emptyDescription">Import photos or videos to begin.</p>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Gallery Tools</h2>
-      <div class="feature-grid">
-        <button type="button" data-feature="Photo Editor"><strong>🖼 Photo Editor</strong><span>Editing tools not yet available</span></button>
-        <button type="button" data-feature="Video Editor"><strong>🎬 Video Editor</strong><span>Editing tools not yet available</span></button>
-        <button type="button" data-feature="PDF Maker"><strong>📄 PDF Maker</strong><span>PDF creation not yet available</span></button>
-        <button type="button" data-feature="QR Studio"><strong>▦ QR Studio</strong><span>QR tools not yet available</span></button>
-        <button type="button" data-feature="Albums"><strong>🗂 Albums</strong><span>Album management not yet available</span></button>
-        <button type="button" data-feature="Private Vault"><strong>🔒 Private Vault</strong><span>Secure vault not yet available</span></button>
-        <button type="button" data-feature="Trash"><strong>🗑 Trash</strong><span>Trash and recovery not yet available</span></button>
-        <button type="button" id="backupButton"><strong>💾 Export Backup</strong><span>Download a copy of each media file</span></button>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Settings</h2>
-      <div class="settings-row">
-        <label for="themeSelect">App appearance</label>
-        <select id="themeSelect" class="setting-select">
-          <option value="midnight">Midnight Purple</option>
-          <option value="light">Light</option>
-          <option value="ocean">Ocean Blue</option>
-          <option value="emerald">Emerald</option>
-          <option value="rose">Rose</option>
-          <option value="sunset">Sunset</option>
-          <option value="black">Pure Black</option>
-          <option value="arctic">Arctic</option>
-        </select>
-      </div>
-      <p class="muted">Media is stored locally in this browser. Keep your own backups of important files.</p>
-      <button id="checkStorageButton" type="button">Check Browser Storage</button>
-    </section>
-  </main>
-
-  <footer>
-    <strong>DEVELOPER — MASTERMIND</strong>
-    <p>MASTERMIND GALLERY PRO · Personal media manager</p>
-  </footer>
-
-  <dialog id="lightbox">
-    <div class="dialog-head">
-      <strong id="lightboxTitle">Media preview</strong>
-      <button id="closeLightbox" type="button">✕ Close</button>
+    <div class="actions">
+      <button id="importButton" class="primary" type="button">＋ Import Photos / Videos</button>
+      <button id="cameraButton" type="button">📷 Choose Camera Photo</button>
+      <button id="reloadButton" type="button">↻ Reload Gallery</button>
+      <input id="fileInput" type="file" accept="image/*,video/*" multiple hidden>
+      <input id="cameraInput" type="file" accept="image/*" capture="environment" hidden>
     </div>
-    <div id="lightboxBody"></div>
-  </dialog>
 
-  <script>
-    "use strict";
+    <div class="stats">
+      <div class="stat"><strong id="totalCount">0</strong><span>Total files</span></div>
+      <div class="stat"><strong id="photoCount">0</strong><span>Photos</span></div>
+      <div class="stat"><strong id="videoCount">0</strong><span>Videos</span></div>
+      <div class="stat"><strong id="storageUsed">0 B</strong><span>Media size</span></div>
+    </div>
+  </section>
 
-    const DB_NAME = "mastermind-gallery-pro-db";
-    const DB_VERSION = 1;
-    const STORE_NAME = "media";
+  <div id="status" role="status" aria-live="polite">Starting gallery…</div>
 
-    let db = null;
-    let allMedia = [];
-    let objectUrls = [];
-    let installPrompt = null;
+  <section class="panel">
+    <h2>My Media</h2>
+    <div class="toolbar">
+      <input id="searchInput" type="search" placeholder="Search file name">
+      <select id="typeFilter">
+        <option value="all">All files</option>
+        <option value="image">Photos only</option>
+        <option value="video">Videos only</option>
+      </select>
+      <select id="sortOrder">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="name">Name A–Z</option>
+        <option value="largest">Largest first</option>
+      </select>
+    </div>
+    <div id="mediaGrid" class="media-grid"></div>
+    <div id="emptyMessage" class="empty hidden">
+      <h3 id="emptyTitle">Your gallery is waiting.</h3>
+      <p id="emptyDescription">Import photos or videos to begin.</p>
+    </div>
+  </section>
 
-    const $ = (id) => document.getElementById(id);
+  <section class="panel">
+    <h2>Gallery Tools</h2>
+    <div class="feature-grid">
+      <button data-feature="Photo Editor"><strong>🖼 Photo Editor</strong><span>Coming in a future update</span></button>
+      <button data-feature="Video Editor"><strong>🎬 Video Editor</strong><span>Coming in a future update</span></button>
+      <button data-feature="PDF Maker"><strong>📄 PDF Maker</strong><span>Coming in a future update</span></button>
+      <button data-feature="QR Studio"><strong>▦ QR Studio</strong><span>Coming in a future update</span></button>
+      <button data-feature="Albums"><strong>🗂 Albums</strong><span>Coming in a future update</span></button>
+      <button data-feature="Private Vault"><strong>🔒 Private Vault</strong><span>Coming in a future update</span></button>
+      <button data-feature="Trash"><strong>🗑 Trash</strong><span>Coming in a future update</span></button>
+      <button id="backupButton"><strong>💾 Export Backup</strong><span>Download saved media files</span></button>
+    </div>
+  </section>
 
-    function setStatus(message, type = "") {
-      const status = $("status");
-      status.textContent = message;
-      status.className = "status" + (type ? " " + type : "");
+  <section class="panel">
+    <h2>Settings</h2>
+    <div class="settings-row">
+      <label for="themeSelect">App theme</label>
+      <select id="themeSelect">
+        <option value="midnight">Midnight Purple</option>
+        <option value="light">Light</option>
+        <option value="ocean">Ocean Blue</option>
+        <option value="emerald">Emerald</option>
+        <option value="rose">Rose</option>
+        <option value="sunset">Sunset</option>
+        <option value="black">Pure Black</option>
+        <option value="arctic">Arctic</option>
+      </select>
+    </div>
+    <p class="muted">Do not clear this website's browser data if you want to keep locally saved media.</p>
+    <button id="storageButton" type="button">Check Browser Storage</button>
+  </section>
+</main>
+
+<footer>
+  <strong>DEVELOPER — MASTERMIND</strong>
+  <p>MASTERMIND GALLERY PRO</p>
+</footer>
+
+<dialog id="previewDialog">
+  <div class="settings-row">
+    <strong id="previewTitle">Preview</strong>
+    <button id="closePreview" type="button">Close ✕</button>
+  </div>
+  <div id="previewArea"></div>
+</dialog>
+
+<script>
+"use strict";
+
+const DB_NAME = "mastermind-gallery-pro-db";
+const DB_VERSION = 1;
+const STORE_NAME = "media";
+
+let database = null;
+let mediaItems = [];
+let currentUrls = [];
+let installEvent = null;
+
+const el = id => document.getElementById(id);
+
+function status(message, type = "") {
+  el("status").textContent = message;
+  el("status").className = type;
+}
+
+function bytes(value) {
+  if (!value) return "0 B";
+  const units = ["B", "KB", "MB", "GB", "TB"];
+  const index = Math.min(Math.floor(Math.log(value) / Math.log(1024)), 4);
+  return (value / (1024 ** index)).toFixed(index ? 2 : 0) + " " + units[index];
+}
+
+function openDatabase() {
+  return new Promise((resolve, reject) => {
+    if (!window.indexedDB) {
+      reject(new Error("IndexedDB is not supported by this browser."));
+      return;
     }
 
-    function formatBytes(bytes) {
-      if (!Number.isFinite(bytes) || bytes <= 0) return "0 B";
-      const units = ["B", "KB", "MB", "GB", "TB"];
-      const index = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
-      return (bytes / Math.pow(1024, index)).toFixed(index === 0 ? 0 : 2) + " " + units[index];
-    }
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-    function openDatabase() {
-      return new Promise((resolve, reject) => {
-        if (!("indexedDB" in window)) {
-          reject(new Error("This browser does not support IndexedDB."));
-          return;
-        }
-
-        const request = indexedDB.open(DB_NAME, DB_VERSION);
-
-        request.onupgradeneeded = () => {
-          const database = request.result;
-          if (!database.objectStoreNames.contains(STORE_NAME)) {
-            database.createObjectStore(STORE_NAME, {
-              keyPath: "id",
-              autoIncrement: true
-            });
-          }
-        };
-
-        request.onsuccess = () => {
-          db = request.result;
-          db.onversionchange = () => {
-            db.close();
-            db = null;
-          };
-          resolve(db);
-        };
-
-        request.onerror = () => reject(request.error || new Error("Could not open media database."));
-        request.onblocked = () => reject(new Error("Database is blocked. Close other gallery tabs and reload."));
-      });
-    }
-
-    function getAllMedia() {
-      return new Promise((resolve, reject) => {
-        if (!db) {
-          reject(new Error("Database is not ready."));
-          return;
-        }
-
-        const transaction = db.transaction(STORE_NAME, "readonly");
-        const request = transaction.objectStore(STORE_NAME).getAll();
-
-        request.onsuccess = () => resolve(request.result || []);
-        request.onerror = () => reject(request.error || new Error("Could not read saved media."));
-        transaction.onabort = () => reject(transaction.error || new Error("Reading media was interrupted."));
-      });
-    }
-
-    function saveFiles(files) {
-      return new Promise((resolve, reject) => {
-        if (!db) {
-          reject(new Error("Database is not ready. Please reload the page."));
-          return;
-        }
-
-        const transaction = db.transaction(STORE_NAME, "readwrite");
-        const store = transaction.objectStore(STORE_NAME);
-        let savedCount = 0;
-
-        transaction.oncomplete = () => resolve(savedCount);
-        transaction.onerror = () => reject(transaction.error || new Error("Could not save files."));
-        transaction.onabort = () => reject(transaction.error || new Error("Saving was cancelled. Check available browser storage."));
-
-        for (const file of files) {
-          if (!(file instanceof Blob)) continue;
-
-          const record = {
-            name: file.name || ("media-" + Date.now()),
-            type: file.type.startsWith("video/") ? "video" : "image",
-            mimeType: file.type || "application/octet-stream",
-            size: file.size,
-            createdAt: Date.now(),
-            lastModified: file.lastModified || Date.now(),
-            blob: file
-          };
-
-          const request = store.add(record);
-          request.onsuccess = () => { savedCount += 1; };
-        }
-      });
-    }
-
-    function deleteMedia(id) {
-      return new Promise((resolve, reject) => {
-        if (!db) {
-          reject(new Error("Database is not ready."));
-          return;
-        }
-
-        const transaction = db.transaction(STORE_NAME, "readwrite");
-        transaction.objectStore(STORE_NAME).delete(Number(id));
-        transaction.oncomplete = () => resolve();
-        transaction.onerror = () => reject(transaction.error || new Error("Could not delete this file."));
-        transaction.onabort = () => reject(transaction.error || new Error("Deleting was cancelled."));
-      });
-    }
-
-    function clearObjectUrls() {
-      for (const url of objectUrls) URL.revokeObjectURL(url);
-      objectUrls = [];
-    }
-
-    function createMediaUrl(blob) {
-      const url = URL.createObjectURL(blob);
-      objectUrls.push(url);
-      return url;
-    }
-
-    function renderGallery() {
-      clearObjectUrls();
-
-      const grid = $("mediaGrid");
-      grid.replaceChildren();
-
-      const query = $("searchInput").value.trim().toLowerCase();
-      const filter = $("typeFilter").value;
-      const sort = $("sortOrder").value;
-
-      let items = allMedia.filter(item => {
-        const matchesName = item.name.toLowerCase().includes(query);
-        const matchesType = filter === "all" || item.type === filter;
-        return matchesName && matchesType;
-      });
-
-      if (sort === "newest") items.sort((a, b) => b.createdAt - a.createdAt);
-      if (sort === "oldest") items.sort((a, b) => a.createdAt - b.createdAt);
-      if (sort === "name") items.sort((a, b) => a.name.localeCompare(b.name));
-      if (sort === "largest") items.sort((a, b) => b.size - a.size);
-
-      $("totalCount").textContent = allMedia.length;
-      $("photoCount").textContent = allMedia.filter(item => item.type === "image").length;
-      $("videoCount").textContent = allMedia.filter(item => item.type === "video").length;
-      $("storageUsed").textContent = formatBytes(allMedia.reduce((sum, item) => sum + item.size, 0));
-
-      $("emptyMessage").classList.toggle("hidden", items.length !== 0);
-      grid.classList.toggle("hidden", items.length === 0);
-
-      if (items.length === 0) {
-        const hasMedia = allMedia.length > 0;
-        $("emptyTitle").textContent = hasMedia ? "No matching files" : "Your gallery is waiting.";
-        $("emptyDescription").textContent = hasMedia
-          ? "Try another search or change the file filter."
-          : "Import photos or videos to begin.";
-        return;
-      }
-
-      const fragment = document.createDocumentFragment();
-
-      for (const item of items) {
-        const card = document.createElement("article");
-        card.className = "media-card";
-
-        const url = createMediaUrl(item.blob);
-        let preview;
-
-        if (item.type === "video") {
-          preview = document.createElement("video");
-          preview.className = "media-preview video-preview";
-          preview.preload = "metadata";
-          preview.muted = true;
-          preview.playsInline = true;
-          preview.src = url;
-          preview.setAttribute("aria-label", item.name);
-        } else {
-          preview = document.createElement("img");
-          preview.className = "media-preview";
-          preview.src = url;
-          preview.alt = item.name;
-          preview.loading = "lazy";
-        }
-
-        preview.addEventListener("click", () => openPreview(item));
-        card.appendChild(preview);
-
-        const info = document.createElement("div");
-        info.className = "media-info";
-
-        const name = document.createElement("div");
-        name.className = "media-name";
-        name.textContent = item.name;
-        name.title = item.name;
-        info.appendChild(name);
-
-        const meta = document.createElement("div");
-        meta.className = "media-meta";
-        meta.textContent = (item.type === "video" ? "Video" : "Photo") + " · " + formatBytes(item.size);
-        info.appendChild(meta);
-
-        const actions = document.createElement("div");
-        actions.className = "card-actions";
-
-        const downloadButton = document.createElement("button");
-        downloadButton.type = "button";
-        downloadButton.className = "small";
-        downloadButton.textContent = "Download";
-        downloadButton.addEventListener("click", () => downloadMedia(item));
-        actions.appendChild(downloadButton);
-
-        const deleteButton = document.createElement("button");
-        deleteButton.type = "button";
-        deleteButton.className = "small danger";
-        deleteButton.textContent = "Delete";
-        deleteButton.addEventListener("click", async () => {
-          if (!confirm("Permanently delete “" + item.name + "” from this gallery?")) return;
-
-          try {
-            await deleteMedia(item.id);
-            await refreshGallery();
-            setStatus("File deleted from this browser.", "success");
-          } catch (error) {
-            setStatus("Delete failed: " + error.message, "error");
-          }
+    request.onupgradeneeded = event => {
+      const db = event.target.result;
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        db.createObjectStore(STORE_NAME, {
+          keyPath: "id",
+          autoIncrement: true
         });
-        actions.appendChild(deleteButton);
-
-        info.appendChild(actions);
-        card.appendChild(info);
-        fragment.appendChild(card);
       }
+    };
 
-      grid.appendChild(fragment);
+    request.onsuccess = () => {
+      database = request.result;
+      database.onversionchange = () => {
+        database.close();
+        database = null;
+      };
+      resolve(database);
+    };
+
+    request.onerror = () => {
+      reject(request.error || new Error("Could not open the media database."));
+    };
+
+    request.onblocked = () => {
+      reject(new Error("Database blocked. Close other gallery tabs and reload."));
+    };
+  });
+}
+
+function saveFiles(files) {
+  return new Promise((resolve, reject) => {
+    if (!database) {
+      reject(new Error("Database is not ready. Reload the page."));
+      return;
     }
 
-    async function refreshGallery() {
-      allMedia = await getAllMedia();
-      renderGallery();
-    }
+    let count = 0;
+    const transaction = database.transaction(STORE_NAME, "readwrite");
+    const store = transaction.objectStore(STORE_NAME);
 
-    async function importFiles(fileList) {
-      const files = Array.from(fileList || []);
-      if (files.length === 0) return;
+    transaction.oncomplete = () => resolve(count);
+    transaction.onerror = () => reject(
+      transaction.error || new Error("Browser could not save the selected files.")
+    );
+    transaction.onabort = () => reject(
+      transaction.error || new Error("Save was cancelled. Check browser storage space.")
+    );
 
-      const supported = files.filter(file =>
-        file.type.startsWith("image/") || file.type.startsWith("video/")
-      );
-
-      if (supported.length === 0) {
-        setStatus("No supported photo or video files were selected.", "error");
-        return;
+    for (const file of files) {
+      if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) {
+        continue;
       }
 
-      $("importButton").disabled = true;
-      $("cameraButton").disabled = true;
-      setStatus("Saving " + supported.length + " file(s) to browser storage…");
+      const record = {
+        name: file.name || ("media-" + Date.now()),
+        type: file.type.startsWith("video/") ? "video" : "image",
+        mimeType: file.type || "application/octet-stream",
+        size: file.size,
+        createdAt: Date.now(),
+        lastModified: file.lastModified || Date.now(),
+        blob: file
+      };
+
+      const request = store.add(record);
+      request.onsuccess = () => { count++; };
+    }
+  });
+}
+
+function readAllFiles() {
+  return new Promise((resolve, reject) => {
+    if (!database) {
+      reject(new Error("Database is not open."));
+      return;
+    }
+
+    const transaction = database.transaction(STORE_NAME, "readonly");
+    const request = transaction.objectStore(STORE_NAME).getAll();
+
+    request.onsuccess = () => resolve(request.result || []);
+    request.onerror = () => reject(
+      request.error || new Error("Could not read saved files.")
+    );
+    transaction.onabort = () => reject(
+      transaction.error || new Error("Reading files was interrupted.")
+    );
+  });
+}
+
+function removeFile(id) {
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(STORE_NAME, "readwrite");
+    transaction.objectStore(STORE_NAME).delete(Number(id));
+
+    transaction.oncomplete = resolve;
+    transaction.onerror = () => reject(transaction.error || new Error("Delete failed."));
+    transaction.onabort = () => reject(transaction.error || new Error("Delete cancelled."));
+  });
+}
+
+function revokeUrls() {
+  currentUrls.forEach(url => URL.revokeObjectURL(url));
+  currentUrls = [];
+}
+
+function makeUrl(blob) {
+  const url = URL.createObjectURL(blob);
+  currentUrls.push(url);
+  return url;
+}
+
+function render() {
+  revokeUrls();
+
+  const grid = el("mediaGrid");
+  grid.replaceChildren();
+
+  const query = el("searchInput").value.trim().toLowerCase();
+  const filter = el("typeFilter").value;
+  const sort = el("sortOrder").value;
+
+  let items = mediaItems.filter(item =>
+    item.name.toLowerCase().includes(query) &&
+    (filter === "all" || item.type === filter)
+  );
+
+  if (sort === "newest") items.sort((a, b) => b.createdAt - a.createdAt);
+  if (sort === "oldest") items.sort((a, b) => a.createdAt - b.createdAt);
+  if (sort === "name") items.sort((a, b) => a.name.localeCompare(b.name));
+  if (sort === "largest") items.sort((a, b) => b.size - a.size);
+
+  el("totalCount").textContent = mediaItems.length;
+  el("photoCount").textContent = mediaItems.filter(x => x.type === "image").length;
+  el("videoCount").textContent = mediaItems.filter(x => x.type === "video").length;
+  el("storageUsed").textContent = bytes(mediaItems.reduce((sum, x) => sum + x.size, 0));
+
+  el("emptyMessage").classList.toggle("hidden", items.length > 0);
+  grid.classList.toggle("hidden", items.length === 0);
+
+  if (!items.length) {
+    const filtered = mediaItems.length > 0;
+    el("emptyTitle").textContent = filtered ? "No matching files" : "Your gallery is waiting.";
+    el("emptyDescription").textContent = filtered
+      ? "Change your search or filter."
+      : "Import photos or videos to begin.";
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  for (const item of items) {
+    const card = document.createElement("article");
+    card.className = "media-card";
+
+    const preview = document.createElement(item.type === "video" ? "video" : "img");
+    preview.className = "media-preview" + (item.type === "video" ? " video" : "");
+    preview.src = makeUrl(item.blob);
+
+    if (item.type === "video") {
+      preview.preload = "metadata";
+      preview.muted = true;
+      preview.playsInline = true;
+    } else {
+      preview.alt = item.name;
+      preview.loading = "lazy";
+    }
+
+    preview.addEventListener("click", () => showPreview(item));
+    card.appendChild(preview);
+
+    const info = document.createElement("div");
+    info.className = "media-info";
+
+    const name = document.createElement("div");
+    name.className = "media-name";
+    name.textContent = item.name;
+    info.appendChild(name);
+
+    const meta = document.createElement("div");
+    meta.className = "media-meta";
+    meta.textContent = (item.type === "video" ? "Video" : "Photo") + " · " + bytes(item.size);
+    info.appendChild(meta);
+
+    const actions = document.createElement("div");
+    actions.className = "card-actions";
+
+    const download = document.createElement("button");
+    download.className = "small";
+    download.textContent = "Download";
+    download.type = "button";
+    download.addEventListener("click", () => downloadFile(item));
+    actions.appendChild(download);
+
+    const del = document.createElement("button");
+    del.className = "small danger";
+    del.textContent = "Delete";
+    del.type = "button";
+
+    del.addEventListener("click", async () => {
+      if (!confirm("Permanently delete " + item.name + "?")) return;
 
       try {
-        const count = await saveFiles(supported);
-        await refreshGallery();
-        setStatus(count + " file(s) saved successfully. Refresh the page to test persistence.", "success");
+        await removeFile(item.id);
+        await reloadGallery();
+        status("File deleted successfully.", "success");
       } catch (error) {
-        console.error("Media import failed:", error);
-        setStatus("Import failed: " + error.message + " Check browser storage settings and available disk space.", "error");
-      } finally {
-        $("importButton").disabled = false;
-        $("cameraButton").disabled = false;
-        $("fileInput").value = "";
-        $("cameraInput").value = "";
-      }
-    }
-
-    function downloadMedia(item) {
-      const url = URL.createObjectURL(item.blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = item.name || "media";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 30000);
-    }
-
-    function openPreview(item) {
-      const dialog = $("lightbox");
-      const body = $("lightboxBody");
-      body.replaceChildren();
-      $("lightboxTitle").textContent = item.name;
-
-      const url = URL.createObjectURL(item.blob);
-      objectUrls.push(url);
-
-      let element;
-      if (item.type === "video") {
-        element = document.createElement("video");
-        element.controls = true;
-        element.autoplay = true;
-        element.playsInline = true;
-      } else {
-        element = document.createElement("img");
-        element.alt = item.name;
-      }
-
-      element.id = "lightboxContent";
-      element.src = url;
-      body.appendChild(element);
-
-      if (typeof dialog.showModal === "function") {
-        dialog.showModal();
-      } else {
-        setStatus("This browser does not support the preview dialog.", "error");
-      }
-    }
-
-    async function exportBackup() {
-      if (allMedia.length === 0) {
-        setStatus("There are no files to back up yet.", "error");
-        return;
-      }
-
-      setStatus("Preparing downloads…");
-      for (const item of allMedia) {
-        downloadMedia(item);
-        await new Promise(resolve => setTimeout(resolve, 350));
-      }
-      setStatus("Backup downloads requested. Your browser may ask permission for multiple downloads.", "success");
-    }
-
-    async function checkStorage() {
-      try {
-        if (navigator.storage && navigator.storage.estimate) {
-          const estimate = await navigator.storage.estimate();
-          const used = formatBytes(estimate.usage || 0);
-          const quota = formatBytes(estimate.quota || 0);
-          setStatus("Browser storage estimate: " + used + " used out of " + quota + ". This may include other site data.", "success");
-        } else {
-          setStatus("Storage estimate is not supported by this browser. Gallery files are stored in IndexedDB.", "success");
-        }
-      } catch (error) {
-        setStatus("Could not check storage: " + error.message, "error");
-      }
-    }
-
-    function applyTheme(theme) {
-      const allowed = ["midnight", "light", "ocean", "emerald", "rose", "sunset", "black", "arctic"];
-      const selected = allowed.includes(theme) ? theme : "midnight";
-      document.body.dataset.theme = selected;
-      $("themeSelect").value = selected;
-
-      try {
-        localStorage.setItem("mastermind-gallery-theme", selected);
-      } catch (error) {
-        console.warn("Theme preference could not be saved.", error);
-      }
-    }
-
-    function setupInstallPrompt() {
-      window.addEventListener("beforeinstallprompt", event => {
-        event.preventDefault();
-        installPrompt = event;
-        $("installButton").classList.remove("hidden");
-      });
-
-      $("installButton").addEventListener("click", async () => {
-        if (!installPrompt) {
-          setStatus("If Chrome supports installation, use the Install option in the browser menu.", "");
-          return;
-        }
-
-        installPrompt.prompt();
-        await installPrompt.userChoice;
-        installPrompt = null;
-        $("installButton").classList.add("hidden");
-      });
-
-      window.addEventListener("appinstalled", () => {
-        $("installButton").classList.add("hidden");
-        setStatus("App installed successfully.", "success");
-      });
-    }
-
-    function registerServiceWorker() {
-      if (!("serviceWorker" in navigator)) return;
-
-      window.addEventListener("load", async () => {
-        try {
-          await navigator.serviceWorker.register("./service-worker.js");
-        } catch (error) {
-          console.warn("Service worker registration failed:", error);
-        }
-      });
-    }
-
-    async function initialize() {
-      try {
-        try {
-          applyTheme(localStorage.getItem("mastermind-gallery-theme") || "midnight");
-        } catch (error) {
-          applyTheme("midnight");
-        }
-
-        setStatus("Opening local media database…");
-        await openDatabase();
-        await refreshGallery();
-
-        setStatus(
-          allMedia.length
-            ? "Gallery ready. " + allMedia.length + " saved file(s) loaded from this browser."
-            : "Gallery ready. No saved media yet. Import photos or videos to begin.",
-          "success"
-        );
-      } catch (error) {
-        console.error("Gallery initialization failed:", error);
-        setStatus("Gallery could not start: " + error.message + " Try reloading the page in Chrome.", "error");
-      }
-    }
-
-    $("importButton").addEventListener("click", () => $("fileInput").click());
-    $("cameraButton").addEventListener("click", () => $("cameraInput").click());
-
-    $("fileInput").addEventListener("change", event => importFiles(event.target.files));
-    $("cameraInput").addEventListener("change", event => importFiles(event.target.files));
-
-    $("refreshButton").addEventListener("click", async () => {
-      try {
-        await refreshGallery();
-        setStatus("Gallery reloaded from saved browser storage.", "success");
-      } catch (error) {
-        setStatus("Could not reload gallery: " + error.message, "error");
+        status("Delete error: " + error.message, "error");
       }
     });
 
-    $("searchInput").addEventListener("input", renderGallery);
-    $("typeFilter").addEventListener("change", renderGallery);
-    $("sortOrder").addEventListener("change", renderGallery);
-    $("themeSelect").addEventListener("change", event => applyTheme(event.target.value));
-    $("backupButton").addEventListener("click", exportBackup);
-    $("checkStorageButton").addEventListener("click", checkStorage);
+    actions.appendChild(del);
+    info.appendChild(actions);
+    card.appendChild(info);
+    fragment.appendChild(card);
+  }
 
-    $("closeLightbox").addEventListener("click", () => {
-      const video = $("lightboxBody").querySelector("video");
-      if (video) video.pause();
-      $("lightbox").close();
-      $("lightboxBody").replaceChildren();
-    });
+  grid.appendChild(fragment);
+}
 
-    $("lightbox").addEventListener("click", event => {
-      if (event.target === $("lightbox")) $("lightbox").close();
-    });
+async function reloadGallery() {
+  mediaItems = await readAllFiles();
+  render();
+}
 
-    document.querySelectorAll("[data-feature]").forEach(button => {
-      button.addEventListener("click", () => {
-        alert(button.dataset.feature + " is not implemented yet. This section is a placeholder for a future update.");
-      });
-    });
+async function importFiles(fileList) {
+  const files = Array.from(fileList || []);
 
-    window.addEventListener("pagehide", clearObjectUrls);
+  if (!files.length) return;
 
-    setupInstallPrompt();
-    registerServiceWorker();
-    initialize();
-  </script>
+  const supported = files.filter(file =>
+    file.type.startsWith("image/") || file.type.startsWith("video/")
+  );
+
+  if (!supported.length) {
+    status("Select a valid image or video file.", "error");
+    return;
+  }
+
+  el("importButton").disabled = true;
+  el("cameraButton").disabled = true;
+  status("Saving " + supported.length + " file(s) to browser storage…");
+
+  try {
+    const count = await saveFiles(supported);
+
+    // Read the database again to verify the saved records.
+    await reloadGallery();
+
+    if (count !== supported.length) {
+      status("Warning: selected " + supported.length + " file(s), but saved " +
+        count + ". Please check the file types.", "error");
+    } else {
+      status(count + " file(s) saved. Now refresh the page to test.", "success");
+    }
+  } catch (error) {
+    console.error("Import error:", error);
+    status("IMPORT FAILED: " + error.message, "error");
+  } finally {
+    el("importButton").disabled = false;
+    el("cameraButton").disabled = false;
+    el("fileInput").value = "";
+    el("cameraInput").value = "";
+  }
+}
+
+function downloadFile(item) {
+  const url = URL.createObjectURL(item.blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = item.name || "media";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 30000);
+}
+
+function showPreview(item) {
+  const area = el("previewArea");
+  area.replaceChildren();
+
+  const element = document.createElement(item.type === "video" ? "video" : "img");
+  element.id = "previewContent";
+  element.src = makeUrl(item.blob);
+
+  if (item.type === "video") {
+    element.controls = true;
+    element.autoplay = true;
+    element.playsInline = true;
+  } else {
+    element.alt = item.name;
+  }
+
+  el("previewTitle").textContent = item.name;
+  area.appendChild(element);
+  el("previewDialog").showModal();
+}
+
+async function exportBackup() {
+  if (!mediaItems.length) {
+    status("No media files to back up.", "error");
+    return;
+  }
+
+  status("Starting backup downloads. Your browser may ask permission for multiple downloads.");
+
+  for (const item of mediaItems) {
+    downloadFile(item);
+    await new Promise(resolve => setTimeout(resolve, 500));
+  }
+
+  status("Backup download requests completed.", "success");
+}
+
+async function checkStorage() {
+  try {
+    if (!navigator.storage || !navigator.storage.estimate) {
+      status("This browser does not provide storage estimates. IndexedDB is still used.", "");
+      return;
+    }
+
+    const info = await navigator.storage.estimate();
+    status("Browser storage: " + bytes(info.usage || 0) +
+      " used; " + bytes(info.quota || 0) + " estimated available quota.", "success");
+  } catch (error) {
+    status("Storage check failed: " + error.message, "error");
+  }
+}
+
+function applyTheme(value) {
+  const themes = ["midnight", "light", "ocean", "emerald", "rose", "sunset", "black", "arctic"];
+  const theme = themes.includes(value) ? value : "midnight";
+
+  document.body.dataset.theme = theme;
+  el("themeSelect").value = theme;
+
+  try {
+    localStorage.setItem("mastermind-gallery-theme", theme);
+  } catch (error) {
+    console.warn("Could not save theme preference.", error);
+  }
+}
+
+function setupInstall() {
+  window.addEventListener("beforeinstallprompt", event => {
+    event.preventDefault();
+    installEvent = event;
+    el("installButton").classList.remove("hidden");
+  });
+
+  el("installButton").addEventListener("click", async () => {
+    if (!installEvent) {
+      status("Use Chrome menu → Install app, if that option is available.", "");
+      return;
+    }
+
+    installEvent.prompt();
+    await installEvent.userChoice;
+    installEvent = null;
+    el("installButton").classList.add("hidden");
+  });
+
+  window.addEventListener("appinstalled", () => {
+    status("App installed.", "success");
+    el("installButton").classList.add("hidden");
+  });
+}
+
+function registerWorker() {
+  if (!("serviceWorker" in navigator)) return;
+
+  window.addEventListener("load", async () => {
+    try {
+      await navigator.serviceWorker.register("./service-worker.js");
+    } catch (error) {
+      console.error("Service worker error:", error);
+    }
+  });
+}
+
+async function initialize() {
+  try {
+    status("Opening media database…");
+
+    try {
+      applyTheme(localStorage.getItem("mastermind-gallery-theme") || "midnight");
+    } catch {
+      applyTheme("midnight");
+    }
+
+    await openDatabase();
+    await reloadGallery();
+
+    status(mediaItems.length
+      ? "Gallery ready. Loaded " + mediaItems.length + " saved file(s)."
+      : "Gallery ready. No saved media yet. Import photos or videos to begin.",
+      "success");
+  } catch (error) {
+    console.error("Startup error:", error);
+    status("STARTUP FAILED: " + error.message, "error");
+  }
+}
+
+el("importButton").addEventListener("click", () => el("fileInput").click());
+el("cameraButton").addEventListener("click", () => el("cameraInput").click());
+
+el("fileInput").addEventListener("change", event => importFiles(event.target.files));
+el("cameraInput").addEventListener("change", event => importFiles(event.target.files));
+
+el("reloadButton").addEventListener("click", async () => {
+  try {
+    await reloadGallery();
+    status("Gallery reloaded from the database.", "success");
+  } catch (error) {
+    status("Reload failed: " + error.message, "error");
+  }
+});
+
+el("searchInput").addEventListener("input", render);
+el("typeFilter").addEventListener("change", render);
+el("sortOrder").addEventListener("change", render);
+el("themeSelect").addEventListener("change", event => applyTheme(event.target.value));
+el("backupButton").addEventListener("click", exportBackup);
+el("storageButton").addEventListener("click", checkStorage);
+
+el("closePreview").addEventListener("click", () => {
+  const video = el("previewArea").querySelector("video");
+  if (video) video.pause();
+  el("previewDialog").close();
+  el("previewArea").replaceChildren();
+});
+
+el("previewDialog").addEventListener("close", () => {
+  const video = el("previewArea").querySelector("video");
+  if (video) video.pause();
+});
+
+document.querySelectorAll("[data-feature]").forEach(button => {
+  button.addEventListener("click", () => {
+    alert(button.dataset.feature + " is not implemented yet.");
+  });
+});
+
+window.addEventListener("pagehide", revokeUrls);
+
+setupInstall();
+registerWorker();
+initialize();
+</script>
 </body>
 </html>
